@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Moin Khokhar — Resume</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      background: #1a1a1a;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      padding: 40px 20px 60px
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      max-width: 900px;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .topbar-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e8ff3c;
+      color: #0c0c0c;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border: none;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+      text-decoration: none
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(232, 255, 60, .25)
+    }
+
+    .download-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0
+    }
+
+    /* ── RESUME ── */
+    .resume {
+      font-family: 'DM Sans', sans-serif;
+      color: #0f0f0f;
+      max-width: 2000px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .5)
+    }
+
+    .header {
+      background: #0c0c0c;
+      color: #fff;
+      padding: 40px 44px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end
+    }
+
+    .header-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin: 0 0 8px
+    }
+
+    .header-title {
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #a0a0a0;
+      margin: 0 0 18px
+    }
+
+    .header-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .tag {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-size: 11px;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      font-weight: 400
+    }
+
+    .tag-accent {
+      background: #e8ff3c;
+      color: #0c0c0c;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700
+    }
+
+    .contact-block {
+      text-align: right
+    }
+
+    .contact-block p {
+      margin: 0 0 6px;
+      font-size: 13px;
+      color: #a0a0a0;
+      line-height: 1.6
+    }
+
+    .contact-block a {
+      color: #e8ff3c;
+      text-decoration: none;
+      font-size: 12px
+    }
+
+    .body {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 600px
+    }
+
+    .left {
+      background: #f5f5f2;
+      padding: 32px 28px
+    }
+
+    .right {
+      padding: 32px 36px
+    }
+
+    .sec-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #888;
+      margin: 0 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #0c0c0c
+    }
+
+    .section {
+      margin-bottom: 28px
+    }
+
+    .skill-group-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 10px 0 6px
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px
+    }
+
+    .pill {
+      background: #0c0c0c;
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      font-weight: 400
+    }
+
+    .pill-outline {
+      background: transparent;
+      color: #0c0c0c;
+      border: 1px solid #ccc;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 2px
+    }
+
+    .edu-item {
+      margin-bottom: 16px
+    }
+
+    .edu-deg {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0 0 2px
+    }
+
+    .edu-inst {
+      font-size: 12px;
+      color: #666;
+      margin: 0 0 2px
+    }
+
+    .edu-score {
+      font-size: 11px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: #0c0c0c
+    }
+
+    .achieve-item {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      padding-left: 12px;
+      position: relative
+    }
+
+    .achieve-item::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #888;
+      font-size: 10px;
+      top: 3px
+    }
+
+    .proj {
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid #ebebeb
+    }
+
+    .proj:last-child {
+      border-bottom: none;
+      margin-bottom: 0
+    }
+
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px
+    }
+
+    .proj-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #0c0c0c;
+      line-height: 1.3;
+      margin: 0
+    }
+
+    .proj-date {
+      font-size: 11px;
+      color: #888;
+      font-weight: 400;
+      white-space: nowrap;
+      margin-left: 12px;
+      margin-top: 2px
+    }
+
+    .proj-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 8px
+    }
+
+    .tool {
+      font-size: 10px;
+      color: #555;
+      background: #ebebeb;
+      padding: 3px 8px;
+      border-radius: 2px;
+      letter-spacing: .5px
+    }
+
+    .tool-main {
+      background: #e8ff3c;
+      color: #0c0c0c;
+      font-weight: 500
+    }
+
+    .proj-desc {
+      font-size: 12.5px;
+      color: #444;
+      line-height: 1.65;
+      margin: 0 0 8px
+    }
+
+    .feat-list {
+      margin: 0;
+      padding: 0;
+      list-style: none
+    }
+
+    .feat-list li {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 3px
+    }
+
+    .feat-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: #0c0c0c;
+      font-weight: 700
+    }
+
+    .summary-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #444;
+      margin: 0 0 6px
+    }
+
+    .highlight {
+      background: #e8ff3c;
+      padding: 1px 4px;
+      font-weight: 500;
+      color: #0c0c0c
+    }
+
+    .soft-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px
+    }
+
+    .soft {
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .soft::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #0c0c0c;
+      border-radius: 50%;
+      display: inline-block
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0
+      }
+
+      .topbar {
+        display: none
+      }
+
+      .resume {
+        box-shadow: none;
+        max-width: 100%
+      }
+    }
+
+    @media(max-width:640px) {
+      .header {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .contact-block {
+        text-align: left
+      }
+
+      .header-name {
+        font-size: 36px
+      }
+
+      .body {
+        grid-template-columns: 1fr
+      }
+
+      .topbar {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <span class="topbar-title">Moin Khokhar — Resume</span>
+    <button class="download-btn" onclick="downloadResume()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M12 3v13M7 11l5 5 5-5" />
+        <path d="M5 21h14" />
+      </svg>
+      Download PDF
+    </button>
+  </div>
+
+  <div class="resume" id="resume">
+    <div class="header">
+      <div>
+        <p class="header-name">Moin<br>Khokhar</p>
+        <p class="header-title">Backend + Full Stack Developer</p>
+        <div class="header-tags">
+          <span class="tag tag-accent">Available for hire</span>
+          <span class="tag">Java</span>
+          <span class="tag">PHP / Laravel</span>
+          <span class="tag">React JS</span>
+          <span class="tag">Node JS</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="contact-block">
+        <p>moinkhokhar2730vdr@gmail.com</p>
+        <p>+91 72010 74880</p>
+        <p>Vadodara, Gujarat</p>
+        <p><a href="https://www.linkedin.com/in/moinkhokhar">linkedin.com/in/moinkhokhar</a></p>
+        <p><a href="https://github.com/Moinkhokhar1">github.com/Moinkhokhar1</a></p>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="left">
+
+        <div class="section">
+          <p class="sec-label">Education</p>
+          <div class="edu-item">
+            <p class="edu-deg">B.Tech — Computer Science &amp; Engineering</p>
+            <p class="edu-inst">ITM(sls) Baroda University, Vadodara</p>
+            <p class="edu-score">SPI 8.63 · Pursuing</p>
+          </div>
+          <div class="edu-item">
+            <p class="edu-deg">Diploma — Computer Engineering</p>
+            <p class="edu-inst">Shri K.J. Polytechnic, Bharuch · GTU</p>
+            <p class="edu-score">CGPA 7.42</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="sec-label">Technical Skills</p>
+          <p class="skill-group-title">Backend</p>
+          <div class="skill-pills">
+            <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">Node JS</span><span
+              class="pill">Java</span><span class="pill">Python</span>
+          </div>
+          <p class="skill-group-title">Frontend</p>
+          <div class="skill-pills">
+            <span class="pill">React JS</span><span class="pill">Angular</span><span class="pill">HTML/CSS</span><span
+              class="pill">Bootstrap</span>
+          </div>
+          <p class="skill-group-title">Database &amp; Tools</p>
+          <div class="skill-pills">
+            <span class="pill">MySQL</span><span class="pill">REST APIs</span><span class="pill">Android
+              Studio</span><span class="pill">Git</span>
+          </div>
+          <p class="skill-group-title">Other</p>
+          <div class="skill-pills">
+            <span class="pill-outline">C++</span><span class="pill-outline">IoT / Arduino</span><span
+              class="pill-outline">Razorpay</span><span class="pill-outline">MQTT</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="sec-label">Soft Skills</p>
+          <div class="soft-skills">
+            <span class="soft">Analytical</span>
+            <span class="soft">Collaborative</span>
+            <span class="soft">Leadership</span>
+            <span class="soft">Adaptable</span>
+            <span class="soft">Problem Solving</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <p class="sec-label">Achievements</p>
+          <div class="achieve-item">Improved GTU's website UI with dedicated result-view functionality.</div>
+          <div class="achieve-item">Intern of the Month — Nexis Infotech, Bharuch.</div>
+          <div class="achieve-item">2nd place — ILLUMINATI 2025 cultural fest, ITM BU.</div>
+        </div>
+
+        <div class="section">
+          <p class="sec-label">Languages</p>
+          <div class="soft-skills">
+            <span class="soft">English</span><span class="soft">Hindi</span><span class="soft">Gujarati</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="right">
+
+        <div class="section">
+          <p class="sec-label">Profile</p>
+          <p class="summary-text">Full stack developer specialising in <span class="highlight">scalable backend
+              systems</span> with hands-on experience across payment integrations, REST APIs, mobile apps, and IoT.
+            Proven in building end-to-end products used by real users — from police deployment platforms to travel
+            booking engines.</p>
+        </div>
+
+        <div class="section">
+          <p class="sec-label">Projects</p>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">Offline Transaction System</p>
+              <span class="proj-date">In Progress</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">Backend Focus</span>
+              <span class="tool">Java / PHP</span><span class="tool">MySQL</span><span class="tool">REST API</span><span
+                class="tool">Offline Sync</span>
+            </div>
+            <p class="proj-desc">Architecting a backend system enabling financial transactions without internet
+              connectivity, with intelligent sync and conflict resolution on reconnect.</p>
+            <ul class="feat-list">
+              <li>Offline-first data storage with local queue management</li>
+              <li>Conflict resolution and idempotent transaction processing</li>
+              <li>Secure sync engine with data integrity validation on reconnect</li>
+              <li>Role-based access and encrypted transaction logs</li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">E-Bandobast — Gujarat Police App</p>
+              <span class="proj-date">SSIP Hackathon 2024</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">Android / Java</span>
+              <span class="tool">Google Maps API</span><span class="tool">XML</span><span class="tool">Push
+                Notifications</span>
+            </div>
+            <p class="proj-desc">Centralized mobile platform for police deployment, coordination, and live monitoring
+              during public events and VIP visits across Gujarat.</p>
+            <ul class="feat-list">
+              <li>Role-based login (Admin, Inspector, Constable)</li>
+              <li>Zone-wise duty assignment and live Google Maps deployment view</li>
+              <li>Real-time push notifications for alerts and updates</li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">Visaease Travel Website</p>
+              <span class="proj-date">June 2025</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">React JS</span>
+              <span class="tool">Node JS</span><span class="tool">MySQL</span><span class="tool">Razorpay</span><span
+                class="tool">Nodemailer</span>
+            </div>
+            <p class="proj-desc">Full-stack travel booking platform with RESTful APIs, admin panel, and payment
+              integration handling packages, bookings, and user management.</p>
+            <ul class="feat-list">
+              <li>RESTful APIs for auth, services, and bookings</li>
+              <li>Cart system, auto pricing, and Razorpay payment gateway</li>
+              <li>Secure email via Nodemailer, user dashboard, admin panel</li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">Pharmacy Management System</p>
+              <span class="proj-date">April 2025</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">Laravel</span><span class="tool">MySQL</span><span
+                class="tool">Razorpay</span>
+            </div>
+            <p class="proj-desc">Web-based system for managing medicines, inventory, billing, and customer records with
+              role-based access control.</p>
+            <ul class="feat-list">
+              <li>Admin/Staff roles, cart system, Razorpay integration</li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">Airline Reservation System</p>
+              <span class="proj-date">April 2025</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">PHP</span><span class="tool">MySQL</span><span
+                class="tool">Bootstrap</span><span class="tool">Razorpay</span>
+            </div>
+            <p class="proj-desc">Dynamic flight booking platform with session-based auth, flight search, ticket booking,
+              and payment gateway.</p>
+            <ul class="feat-list">
+              <li>Flight search by origin/destination/date, passenger booking, Razorpay</li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">IoT Plant Watering System</p>
+              <span class="proj-date">March 2024</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">Arduino / C++</span><span class="tool">DHT11</span><span class="tool">Soil
+                Moisture Sensor</span><span class="tool">MQTT</span>
+            </div>
+            <p class="proj-desc">Smart IoT system monitoring soil moisture, temperature, and humidity — auto-activating
+              water pump below threshold with remote MQTT dashboard.</p>
+            <ul class="feat-list">
+              <li>Real-time temp/humidity monitoring and automatic pump control</li>
+              <li>Remote monitoring via IoT Cloud / MQTT Dashboard with alerts</li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">Satellite Data Analysis Platform</p>
+              <span class="proj-date">2025</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">Python</span><span class="tool">Rasterio</span><span
+                class="tool">NumPy</span><span class="tool">Matplotlib</span><span class="tool">Remote Sensing</span>
+            </div>
+            <p class="proj-desc">Processes multi-band satellite imagery to extract environmental insights using NDVI and
+              NDWI indices for vegetation health and water resource monitoring.</p>
+            <ul class="feat-list">
+              <li>NDVI &amp; NDWI index calculation from raw satellite bands</li>
+              <li>Vegetation health and water body analysis from geospatial data</li>
+              <li>Supports sustainable development and environmental monitoring</li>
+              <li><a href="https://github.com/Moinkhokhar1/satellite_analytics_plateform"
+                  style="color:#0c0c0c;font-weight:600">GitHub ↗</a></li>
+            </ul>
+          </div>
+
+          <div class="proj">
+            <div class="proj-header">
+              <p class="proj-name">TechnoLab Club Website</p>
+              <span class="proj-date">2025</span>
+            </div>
+            <div class="proj-tools">
+              <span class="tool tool-main">Technical Member</span><span class="tool">Web Development</span><span
+                class="tool">Club Website</span>
+            </div>
+            <p class="proj-desc">Official website for the TechnoLab Club at ITM(sls) Baroda University, built as a
+              Technical Member of the club and currently live in production.</p>
+            <ul class="feat-list">
+              <li>Full club website — events, members, and activities</li>
+              <li><a href="https://technolabclub-dibu.onrender.com/" style="color:#0c0c0c;font-weight:600">Live Site
+                  ↗</a> &nbsp;·&nbsp; <a href="https://github.com/Moinkhokhar1/TechnoLabClub"
+                  style="color:#0c0c0c;font-weight:600">GitHub ↗</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function downloadResume() {
+      const btn = document.querySelector('.download-btn');
+      btn.textContent = 'Preparing…';
+      setTimeout(() => {
+        window.print();
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
+      }, 200);
+    }
+
+    // function downloadResume() {
+    //   const btn = document.querySelector('.download-btn');
+    //   btn.textContent = 'Downloading…';
+
+    //   const a = document.createElement('a');
+    //   a.href = 'Moin_Khokhar_Resume.pdf';  // path to your PDF file
+    //   a.download = 'Moin_Khokhar_Resume.pdf';  // name shown when downloading
+    //   a.click();
+
+    //   setTimeout(() => {
+    //     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
+    //   }, 1000);
+    // }
+  </script>
+</body>
+
+</html>

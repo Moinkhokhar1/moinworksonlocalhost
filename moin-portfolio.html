@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Moin Khokhar — Backend & Full Stack Developer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --black: #0c0c0c;
+      --white: #fff;
+      --yellow: #e8ff3c;
+      --gray: #555;
+      --light: #f5f5f2;
+      --mid: #888;
+      --border: #e0e0e0;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-body);
+      overflow-x: hidden
+    }
+
+    /* ── CURSOR ── */
+    * {
+      cursor: none
+    }
+
+    #cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--yellow);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform .15s, width .2s, height .2s;
+      transform: translate(-50%, -50%)
+    }
+
+    #cursor.big {
+      width: 40px;
+      height: 40px;
+      opacity: .5
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      mix-blend-mode: difference
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--white);
+      letter-spacing: -1px
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: color .2s
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow)
+    }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 60px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-tag {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp .8s .2s forwards
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 10vw, 140px);
+      font-weight: 800;
+      line-height: .9;
+      letter-spacing: -4px;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp .8s .3s forwards
+    }
+
+    .hero-name span {
+      color: var(--yellow)
+    }
+
+    .hero-roles {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s .5s forwards
+    }
+
+    .role-badge {
+      background: #1a1a1a;
+      color: #ccc;
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border: 1px solid #2a2a2a;
+      text-transform: uppercase
+    }
+
+    .role-badge.accent {
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 700;
+      border-color: var(--yellow)
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--mid);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp .8s .8s forwards
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(var(--yellow), transparent)
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: clamp(120px, 20vw, 280px);
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -10px;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 60px
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border)
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--light);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center
+    }
+
+    .about-headline {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -2px
+    }
+
+    .about-headline em {
+      font-style: normal;
+      background: var(--yellow);
+      padding: 2px 6px
+    }
+
+    .about-body {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--gray);
+      margin-top: 24px
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px
+    }
+
+    .stat {
+      background: var(--white);
+      padding: 24px;
+      border-left: 3px solid var(--yellow)
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--mid);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: var(--black)
+    }
+
+    #skills .section-label {
+      color: #555
+    }
+
+    #skills .section-label::after {
+      background: #222
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px
+    }
+
+    .skill-group {
+      background: #111;
+      padding: 32px 28px
+    }
+
+    .skill-group-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 20px
+    }
+
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .skill-item {
+      font-size: 15px;
+      color: #ccc;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .skill-item::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--yellow);
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      background: var(--white)
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px
+    }
+
+    /* BASE card — light (even cards) */
+    .project-card {
+      background: var(--light);
+      color: var(--black);
+      padding: 40px 44px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: start;
+      transition: background .2s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--yellow);
+      transition: width .3s
+    }
+
+    .project-card:hover::before {
+      width: 4px
+    }
+
+    /* ODD cards (1st, 3rd, 5th…) — dark */
+    .project-card:nth-child(odd) {
+      background: var(--black);
+      color: var(--white)
+    }
+
+    .project-card:nth-child(odd):hover {
+      background: #111
+    }
+
+    /* EVEN cards (2nd, 4th, 6th…) — light */
+    .project-card:nth-child(even) {
+      background: var(--light)
+    }
+
+    .project-card:nth-child(even):hover {
+      background: #f0f0ec
+    }
+
+    /* ── proj-number ── */
+    .proj-number {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 10px;
+      letter-spacing: 1px
+    }
+
+    .project-card:nth-child(odd) .proj-number {
+      color: #555
+    }
+
+    .project-card:nth-child(even) .proj-number {
+      color: var(--mid)
+    }
+
+    /* ── proj-title ── */
+    .proj-title {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px
+    }
+
+    .project-card:nth-child(odd) .proj-title {
+      color: var(--white)
+    }
+
+    .project-card:nth-child(even) .proj-title {
+      color: var(--black)
+    }
+
+    /* ── proj-status ── */
+    .proj-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--yellow);
+      padding: 4px 12px;
+      margin-bottom: 14px
+    }
+
+    .proj-status .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--black);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite
+    }
+
+    /* ── proj-desc ── */
+    .proj-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 600px
+    }
+
+    .project-card:nth-child(odd) .proj-desc {
+      color: #999
+    }
+
+    .project-card:nth-child(even) .proj-desc {
+      color: var(--gray)
+    }
+
+    /* ── proj-tools ── */
+    .proj-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 20px
+    }
+
+    .proj-tool {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--gray)
+    }
+
+    .project-card:nth-child(odd) .proj-tool {
+      border-color: #2a2a2a;
+      color: #888
+    }
+
+    .project-card:nth-child(even) .proj-tool {
+      border-color: var(--border);
+      color: var(--gray)
+    }
+
+    .proj-tool.main {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black)
+    }
+
+    .project-card:nth-child(odd) .proj-tool.main {
+      background: var(--yellow);
+      color: var(--black);
+      border-color: var(--yellow)
+    }
+
+    .project-card:nth-child(even) .proj-tool.main {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black)
+    }
+
+    /* ── proj-features ── */
+    .proj-features {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 16px
+    }
+
+    .proj-feat {
+      font-size: 13px;
+      padding-left: 16px;
+      position: relative
+    }
+
+    .project-card:nth-child(odd) .proj-feat {
+      color: #777
+    }
+
+    .project-card:nth-child(even) .proj-feat {
+      color: #666
+    }
+
+    .proj-feat::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      font-weight: 700
+    }
+
+    .project-card:nth-child(odd) .proj-feat::before {
+      color: var(--yellow)
+    }
+
+    .project-card:nth-child(even) .proj-feat::before {
+      color: var(--black)
+    }
+
+    /* ── proj-right ── */
+    .proj-right {
+      text-align: right;
+      flex-shrink: 0
+    }
+
+    .proj-date {
+      font-size: 13px;
+      color: var(--mid);
+      font-style: italic
+    }
+
+    .proj-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 2px solid var(--yellow);
+      padding-bottom: 2px
+    }
+
+    .project-card:nth-child(odd) .proj-link {
+      color: var(--yellow)
+    }
+
+    .project-card:nth-child(even) .proj-link {
+      color: var(--black)
+    }
+
+    /* ── ACHIEVEMENTS ── */
+    #achievements {
+      background: var(--light)
+    }
+
+    .achieve-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px
+    }
+
+    .achieve-card {
+      background: var(--white);
+      padding: 32px 28px;
+      border-bottom: 3px solid var(--yellow)
+    }
+
+    .achieve-icon {
+      font-size: 32px;
+      margin-bottom: 16px
+    }
+
+    .achieve-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .achieve-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--black);
+      text-align: center
+    }
+
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 800;
+      letter-spacing: -4px;
+      color: var(--white);
+      line-height: .9;
+      margin-bottom: 48px
+    }
+
+    .contact-headline span {
+      color: var(--yellow)
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 60px
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #888;
+      text-decoration: none;
+      font-size: 15px;
+      transition: color .2s;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px
+    }
+
+    .contact-link:hover {
+      color: var(--yellow);
+      border-color: var(--yellow)
+    }
+
+    .contact-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 1px;
+      padding: 16px 40px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform .2s;
+      margin: 8px
+    }
+
+    .contact-cta:hover {
+      transform: translateY(-2px)
+    }
+
+    .footer-bar {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid #1a1a1a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #333;
+      font-size: 13px
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s, transform .7s
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px) {
+      nav {
+        padding: 20px 24px
+      }
+
+      nav .nav-links {
+        display: none
+      }
+
+      section {
+        padding: 80px 24px
+      }
+
+      #hero {
+        padding: 40px 24px
+      }
+
+      #about {
+        grid-template-columns: 1fr
+      }
+
+      .project-card {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .proj-right {
+        text-align: left
+      }
+
+      .hero-bg-text {
+        display: none
+      }
+
+      .contact-headline {
+        font-size: 52px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">MK</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-text">MK</div>
+    <p class="hero-tag">Backend & Full Stack Developer · Vadodara, Gujarat</p>
+    <h1 class="hero-name">Moin<br><span>Khokhar</span></h1>
+    <div class="hero-roles">
+      <span class="role-badge accent">Available for Hire</span>
+      <span class="role-badge">Java</span>
+      <span class="role-badge">PHP / Laravel</span>
+      <span class="role-badge">React JS</span>
+      <span class="role-badge">Node JS</span>
+      <span class="role-badge">MySQL</span>
+      <span class="role-badge">Android Dev</span>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">About me</p>
+      <h2 class="about-headline">Building backends that <em>actually scale</em></h2>
+      <p class="about-body">Full stack developer with deep backend expertise — from REST APIs and payment gateways to
+        Android apps and IoT systems. I build products that real people use. Currently pursuing B.Tech in Computer
+        Science at ITM(sls) Baroda University while shipping production-grade projects.</p>
+    </div>
+    <div class="reveal">
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8.63</div>
+          <div class="stat-label">Current SPI</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Tech Stacks</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3×</div>
+          <div class="stat-label">Hackathon & Awards</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label reveal">Technical Skills</p>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <div class="skill-group-title">Backend</div>
+        <div class="skill-list">
+          <div class="skill-item">PHP</div>
+          <div class="skill-item">Laravel</div>
+          <div class="skill-item">Node JS</div>
+          <div class="skill-item">Java</div>
+          <div class="skill-item">Python</div>
+          <div class="skill-item">REST APIs</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Frontend</div>
+        <div class="skill-list">
+          <div class="skill-item">React JS</div>
+          <div class="skill-item">Angular</div>
+          <div class="skill-item">HTML / CSS</div>
+          <div class="skill-item">Bootstrap</div>
+          <div class="skill-item">JavaScript</div>
+          <div class="skill-item">XML</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Database & Tools</div>
+        <div class="skill-list">
+          <div class="skill-item">MySQL</div>
+          <div class="skill-item">Android Studio</div>
+          <div class="skill-item">Git / GitHub</div>
+          <div class="skill-item">Razorpay</div>
+          <div class="skill-item">Nodemailer</div>
+          <div class="skill-item">Google Maps API</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Other</div>
+        <div class="skill-list">
+          <div class="skill-item">C++</div>
+          <div class="skill-item">Arduino / IoT</div>
+          <div class="skill-item">MQTT Dashboard</div>
+          <div class="skill-item">DHT11 / Sensors</div>
+          <div class="skill-item">Offline Systems</div>
+          <div class="skill-item">Payment Gateways</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label reveal">Projects</p>
+    <div class="projects-list">
+
+      <!-- 1 — ODD → dark -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">01 — Featured</div>
+          <div class="proj-status"><span class="dot"></span>In Progress</div>
+          <h3 class="proj-title">Offline Transaction System</h3>
+          <p class="proj-desc">Architecting a backend system enabling financial transactions without internet — with
+            intelligent queue management, conflict resolution, and secure sync on reconnect.</p>
+          <div class="proj-features">
+            <div class="proj-feat">Offline-first local transaction queue with idempotent processing</div>
+            <div class="proj-feat">Conflict resolution engine with data integrity validation on sync</div>
+            <div class="proj-feat">Role-based access and encrypted transaction logs</div>
+            <div class="proj-feat">Secure reconnect sync with full audit trail</div>
+          </div>
+          <div class="proj-tools">
+            <span class="proj-tool main">Backend Focus</span>
+            <span class="proj-tool">Java / PHP</span>
+            <span class="proj-tool">MySQL</span>
+            <span class="proj-tool">REST API</span>
+            <span class="proj-tool">Offline Sync</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">2025 — Ongoing</div>
+          <a href="https://github.com/Moinkhokhar1/offlinepayment" class="proj-link" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- 2 — EVEN → light -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">02</div>
+          <h3 class="proj-title">E-Bandobast — Gujarat Police App</h3>
+          <p class="proj-desc">Centralized mobile platform for police deployment, coordination, and live monitoring
+            during public events and VIP visits across Gujarat. Built at SSIP Hackathon 2024.</p>
+          <div class="proj-features">
+            <div class="proj-feat">Role-based login (Admin, Inspector, Constable)</div>
+            <div class="proj-feat">Zone-wise duty assignment + live Google Maps view</div>
+            <div class="proj-feat">Real-time push notifications for alerts</div>
+          </div>
+          <div class="proj-tools">
+            <span class="proj-tool main">Android / Java</span>
+            <span class="proj-tool">Google Maps API</span>
+            <span class="proj-tool">XML</span>
+            <span class="proj-tool">Push Notifications</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">SSIP Hackathon 2024</div>
+          <a href="https://github.com/Moinkhokhar1/E-BANDOBAST.git" class="proj-link" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- 3 — ODD → dark -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">03</div>
+          <h3 class="proj-title">Visaease Travel Website</h3>
+          <p class="proj-desc">Full-stack travel booking platform with RESTful APIs, admin panel, payment integration,
+            and user dashboard for packages, bookings, and travel history.</p>
+          <div class="proj-features">
+            <div class="proj-feat">RESTful APIs for auth, services & bookings</div>
+            <div class="proj-feat">Cart system, auto pricing, Razorpay payment</div>
+            <div class="proj-feat">Secure email via Nodemailer, admin panel</div>
+          </div>
+          <div class="proj-tools">
+            <span class="proj-tool main">React JS</span>
+            <span class="proj-tool">Node JS</span>
+            <span class="proj-tool">MySQL</span>
+            <span class="proj-tool">Razorpay</span>
+            <span class="proj-tool">Nodemailer</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">June 2025</div>
+        </div>
+      </div>
+
+      <!-- 4 — EVEN → light -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">04</div>
+          <h3 class="proj-title">Pharmacy Management System</h3>
+          <p class="proj-desc">Web-based system for managing medicines, inventory, billing, and customers with
+            role-based access, cart, and automated billing.</p>
+          <div class="proj-tools">
+            <span class="proj-tool main">Laravel</span>
+            <span class="proj-tool">MySQL</span>
+            <span class="proj-tool">Razorpay</span>
+            <span class="proj-tool">Role-Based Access</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">April 2025</div>
+        </div>
+      </div>
+
+      <!-- 5 — ODD → dark -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">05</div>
+          <h3 class="proj-title">Airline Reservation System</h3>
+          <p class="proj-desc">Dynamic flight booking with session-based auth, flight search by origin/destination/date,
+            passenger booking, and Razorpay payment gateway.</p>
+          <div class="proj-tools">
+            <span class="proj-tool main">PHP</span>
+            <span class="proj-tool">MySQL</span>
+            <span class="proj-tool">Bootstrap</span>
+            <span class="proj-tool">Razorpay</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">April 2025</div>
+          <a href="https://github.com/Moinkhokhar1/airline_reservation_system.git" class="proj-link"
+            target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- 6 — EVEN → light -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">06</div>
+          <h3 class="proj-title">IoT Plant Watering System</h3>
+          <p class="proj-desc">Smart IoT system auto-activating a water pump when soil moisture drops below threshold,
+            with real-time MQTT dashboard monitoring and mobile alerts.</p>
+          <div class="proj-tools">
+            <span class="proj-tool main">Arduino / C++</span>
+            <span class="proj-tool">DHT11</span>
+            <span class="proj-tool">Soil Moisture Sensor</span>
+            <span class="proj-tool">MQTT</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">March 2024</div>
+        </div>
+      </div>
+
+      <!-- 7 — ODD → dark -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">07</div>
+          <h3 class="proj-title">Satellite Data Analysis Platform</h3>
+          <p class="proj-desc">Processes multi-band satellite imagery to extract environmental insights — NDVI and NDWI
+            indices for vegetation health and water resource monitoring using Python-based remote sensing.</p>
+          <div class="proj-features">
+            <div class="proj-feat">NDVI &amp; NDWI index calculation from raw satellite bands</div>
+            <div class="proj-feat">Vegetation health and water body analysis from geospatial data</div>
+            <div class="proj-feat">Environmental monitoring supporting sustainable development</div>
+          </div>
+          <div class="proj-tools">
+            <span class="proj-tool main">Python</span>
+            <span class="proj-tool">Rasterio</span>
+            <span class="proj-tool">NumPy</span>
+            <span class="proj-tool">Matplotlib</span>
+            <span class="proj-tool">Remote Sensing</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">2025</div>
+          <a href="https://github.com/Moinkhokhar1/satellite_analytics_plateform" class="proj-link"
+            target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+
+      <!-- 8 — EVEN → light -->
+      <div class="project-card reveal">
+        <div>
+          <div class="proj-number">08</div>
+          <h3 class="proj-title">TechnoLab Club Website</h3>
+          <p class="proj-desc">Official website for the TechnoLab Club at ITM(sls) Baroda University — built and
+            maintained as Technical Member. Currently live in production on Render.</p>
+          <div class="proj-features">
+            <div class="proj-feat">Full club website — events, members, and activities</div>
+            <div class="proj-feat">Deployed and live on Render</div>
+          </div>
+          <div class="proj-tools">
+            <span class="proj-tool main">Technical Member</span>
+            <span class="proj-tool">Web Development</span>
+            <span class="proj-tool">Live on Render</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-date">2025</div>
+          <a href="https://technolabclub-dibu.onrender.com/" class="proj-link" target="_blank">Live ↗</a>
+          <a href="https://github.com/Moinkhokhar1/TechnoLabClub" class="proj-link" target="_blank"
+            style="margin-top:6px">GitHub ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <p class="section-label reveal">Achievements</p>
+    <div class="achieve-grid reveal">
+      <div class="achieve-card">
+        <div class="achieve-icon">🏆</div>
+        <div class="achieve-title">SSIP Hackathon 2024</div>
+        <div class="achieve-desc">Built E-Bandobast — a full police deployment management platform — in a competitive
+          hackathon environment.</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">⭐</div>
+        <div class="achieve-title">Intern of the Month</div>
+        <div class="achieve-desc">Recognised as Intern of the Month at Nexis Infotech, Bharuch for outstanding
+          contributions during internship.</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">🎖️</div>
+        <div class="achieve-title">ILLUMINATI 2025 — 2nd Place</div>
+        <div class="achieve-desc">Secured second position in ITM BU's prestigious cultural fest ILLUMINATI 2025.</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">💻</div>
+        <div class="achieve-title">GTU Website Improvement</div>
+        <div class="achieve-desc">Improved the UI of Gujarat Technological University's official website with a
+          dedicated result-view functionality.</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">🧑🏻‍💻</div>
+        <div class="achieve-title">GDGoC 2025 Technical Lead</div>
+        <div class="achieve-desc">Led a Google Developer's Group on Campus's Events As a Technical Lead and Coordinate
+          With The Many Events GDGoC 2025.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="contact-headline reveal">Let's<br><span>Work.</span></h2>
+    <div class="contact-links reveal">
+      <a href="mailto:moinkhokhar2730vdr@gmail.com" class="contact-link">
+        <span>✉</span> moinkhokhar2730vdr@gmail.com
+      </a>
+      <a href="tel:+917201074880" class="contact-link">
+        <span>📞</span> +91 72010 74880
+      </a>
+      <a href="https://www.linkedin.com/in/moinkhokhar" class="contact-link" target="_blank">
+        <span>in</span> linkedin.com/in/moinkhokhar
+      </a>
+      <a href="https://github.com/Moinkhokhar1" class="contact-link" target="_blank">
+        <span>⌥</span> github.com/Moinkhokhar1
+      </a>
+    </div>
+    <a href="mailto:moinkhokhar2730vdr@gmail.com" class="contact-cta reveal">Get in Touch ↗</a>
+    <a href="moin_khokhar_resume.html" class="contact-cta reveal">Get My Resume ↗</a>
+    <div class="footer-bar">
+      <span>© 2025 Moin Khokhar</span>
+      <span>Vadodara, Gujarat, India</span>
+      <span>Backend + Full Stack Developer</span>
+    </div>
+  </section>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a,button,.project-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+      const t = window.scrollY;
+      const bg = document.querySelector('.hero-bg-text');
+      if (bg) bg.style.transform = `translate(-50%, calc(-50% + ${t * 0.3}px))`;
+    });
+  </script>
+</body>
+
+</html>
