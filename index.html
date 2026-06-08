@@ -125,16 +125,24 @@
       animation: fadeUp .8s .2s forwards
     }
 
-.hero-name{
-  font-family:var(--font-display);
-  font-size:clamp(64px,10vw,140px);
-  font-weight:800;line-height:.9;
-  letter-spacing:-4px;
-  color:var(--white);
-  opacity:0;
-  animation:fadeUp .8s .3s forwards
-}
-.hero-name span{color:var(--yellow)}
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 16vw, 140px);
+      font-weight: 800;
+      line-height: .9;
+      letter-spacing: -2px;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp .8s .3s forwards;
+      /* prevent overflow on mobile */
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    .hero-name span {
+      color: var(--yellow)
+    }
 
     .hero-roles {
       display: flex;
@@ -348,7 +356,6 @@
       gap: 2px
     }
 
-    /* BASE card — light (even cards) */
     .project-card {
       background: var(--light);
       color: var(--black);
@@ -377,7 +384,6 @@
       width: 4px
     }
 
-    /* ODD cards (1st, 3rd, 5th…) — dark */
     .project-card:nth-child(odd) {
       background: var(--black);
       color: var(--white)
@@ -387,7 +393,6 @@
       background: #111
     }
 
-    /* EVEN cards (2nd, 4th, 6th…) — light */
     .project-card:nth-child(even) {
       background: var(--light)
     }
@@ -396,7 +401,6 @@
       background: #f0f0ec
     }
 
-    /* ── proj-number ── */
     .proj-number {
       font-family: var(--font-display);
       font-size: 13px;
@@ -414,7 +418,6 @@
       color: var(--mid)
     }
 
-    /* ── proj-title ── */
     .proj-title {
       font-family: var(--font-display);
       font-size: clamp(20px, 2.5vw, 28px);
@@ -431,7 +434,6 @@
       color: var(--black)
     }
 
-    /* ── proj-status ── */
     .proj-status {
       display: inline-flex;
       align-items: center;
@@ -454,7 +456,6 @@
       animation: pulse 1.5s infinite
     }
 
-    /* ── proj-desc ── */
     .proj-desc {
       font-size: 15px;
       line-height: 1.7;
@@ -469,7 +470,6 @@
       color: var(--gray)
     }
 
-    /* ── proj-tools ── */
     .proj-tools {
       display: flex;
       flex-wrap: wrap;
@@ -514,7 +514,6 @@
       border-color: var(--black)
     }
 
-    /* ── proj-features ── */
     .proj-features {
       display: flex;
       flex-direction: column;
@@ -551,7 +550,6 @@
       color: var(--black)
     }
 
-    /* ── proj-right ── */
     .proj-right {
       text-align: right;
       flex-shrink: 0
@@ -748,7 +746,16 @@
       }
 
       #hero {
-        padding: 40px 24px
+        padding: 40px 24px;
+        padding-bottom: 50px;
+      }
+
+      /* KEY FIX: scale the name to always fit on mobile */
+      .hero-name {
+        font-size: clamp(40px, 13.5vw, 80px);
+        letter-spacing: -1px;
+        white-space: nowrap;
+        overflow: visible;
       }
 
       #about {
@@ -757,7 +764,8 @@
 
       .project-card {
         grid-template-columns: 1fr;
-        gap: 16px
+        gap: 16px;
+        padding: 28px 20px;
       }
 
       .proj-right {
@@ -770,6 +778,19 @@
 
       .contact-headline {
         font-size: 52px
+      }
+
+      .hero-scroll {
+        right: 24px;
+        bottom: 40px;
+      }
+    }
+
+    /* Extra small screens */
+    @media(max-width: 400px) {
+      .hero-name {
+        font-size: clamp(36px, 12vw, 60px);
+        letter-spacing: -1px;
       }
     }
   </style>
@@ -897,7 +918,6 @@
     <p class="section-label reveal">Projects</p>
     <div class="projects-list">
 
-      <!-- 1 — ODD → dark -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">01 — Featured</div>
@@ -925,7 +945,6 @@
         </div>
       </div>
 
-      <!-- 2 — EVEN → light -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">02</div>
@@ -950,7 +969,6 @@
         </div>
       </div>
 
-      <!-- 3 — ODD → dark -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">03</div>
@@ -975,7 +993,6 @@
         </div>
       </div>
 
-      <!-- 4 — EVEN → light -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">04</div>
@@ -994,7 +1011,6 @@
         </div>
       </div>
 
-      <!-- 5 — ODD → dark -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">05</div>
@@ -1015,7 +1031,6 @@
         </div>
       </div>
 
-      <!-- 6 — EVEN → light -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">06</div>
@@ -1034,7 +1049,6 @@
         </div>
       </div>
 
-      <!-- 7 — ODD → dark -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">07</div>
@@ -1061,7 +1075,6 @@
         </div>
       </div>
 
-      <!-- 8 — EVEN → light -->
       <div class="project-card reveal">
         <div>
           <div class="proj-number">08</div>
