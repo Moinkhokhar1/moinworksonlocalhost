@@ -752,10 +752,11 @@
 
       /* KEY FIX: scale the name to always fit on mobile */
       .hero-name {
-        font-size: clamp(40px, 13.5vw, 80px);
+        font-size: clamp(36px, 11.5vw, 80px);
         letter-spacing: -1px;
-        white-space: nowrap;
+        white-space: normal;  /* allow wrapping */
         overflow: visible;
+        word-break: break-word;
       }
 
       #about {
@@ -789,9 +790,11 @@
     /* Extra small screens */
     @media(max-width: 400px) {
       .hero-name {
-        font-size: clamp(36px, 12vw, 60px);
-        letter-spacing: -1px;
-      }
+    font-size: clamp(32px, 10.5vw, 60px);
+    letter-spacing: -1px;
+    white-space: normal;
+    word-break: break-word;
+  }
     }
   </style>
 </head>
