@@ -696,28 +696,28 @@
   </div>
 
   <script>
-    function downloadResume() {
-      const btn = document.querySelector('.download-btn');
-      btn.textContent = 'Preparing…';
-      setTimeout(() => {
-        window.print();
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
-      }, 200);
-    }
-
     // function downloadResume() {
     //   const btn = document.querySelector('.download-btn');
-    //   btn.textContent = 'Downloading…';
-
-    //   const a = document.createElement('a');
-    //   a.href = 'Moin_Khokhar_Resume.pdf';  // path to your PDF file
-    //   a.download = 'Moin_Khokhar_Resume.pdf';  // name shown when downloading
-    //   a.click();
-
+    //   btn.textContent = 'Preparing…';
     //   setTimeout(() => {
+    //     window.print();
     //     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
-    //   }, 1000);
+    //   }, 200);
     // }
+
+    function downloadResume() {
+      const btn = document.querySelector('.download-btn');
+      btn.textContent = 'Downloading…';
+
+      const a = document.createElement('a');
+      a.href = 'Moin Khokhar — Resume.pdf';  
+      a.download = 'Moin Khokhar Resume.pdf';  // name shown when downloading
+      a.click();
+
+      setTimeout(() => {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
+      }, 1000);
+    }
   </script>
 </body>
 
