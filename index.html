@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Moin Khokhar - Backend & Full Stack Developer</title>
+  <title>Moin Khokhar — Backend & Full Stack Developer</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
     rel="stylesheet" />
@@ -30,7 +30,7 @@
     }
 
     html {
-      -behavior: smooth
+      scroll-behavior: smooth
     }
 
     body {
@@ -170,7 +170,7 @@
       border-color: var(--yellow)
     }
 
-    .hero- {
+    .hero-scroll {
       position: absolute;
       bottom: 60px;
       right: 60px;
@@ -186,7 +186,7 @@
       animation: fadeUp .8s .8s forwards
     }
 
-    .-line {
+    .scroll-line {
       width: 1px;
       height: 60px;
       background: linear-gradient(var(--yellow), transparent)
@@ -750,20 +750,12 @@
         padding-bottom: 50px;
       }
 
-       #cursor {
-        display: none;
-       }
-      * {
-        cursor: auto;
-      }
-
       /* KEY FIX: scale the name to always fit on mobile */
       .hero-name {
-        font-size: clamp(36px, 11.5vw, 80px);
+        font-size: clamp(40px, 13.5vw, 80px);
         letter-spacing: -1px;
-        white-space: normal;  /* allow wrapping */
+        white-space: nowrap;
         overflow: visible;
-        word-break: break-word;
       }
 
       #about {
@@ -788,7 +780,7 @@
         font-size: 52px
       }
 
-      .hero- {
+      .hero-scroll {
         right: 24px;
         bottom: 40px;
       }
@@ -797,11 +789,9 @@
     /* Extra small screens */
     @media(max-width: 400px) {
       .hero-name {
-    font-size: clamp(32px, 10.5vw, 60px);
-    letter-spacing: -1px;
-    white-space: normal;
-    word-break: break-word;
-  }
+        font-size: clamp(36px, 12vw, 60px);
+        letter-spacing: -1px;
+      }
     }
   </style>
 </head>
@@ -834,6 +824,10 @@
       <span class="role-badge">Node JS</span>
       <span class="role-badge">MySQL</span>
       <span class="role-badge">Android Dev</span>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
     </div>
   </section>
 
@@ -947,7 +941,7 @@
         </div>
         <div class="proj-right">
           <div class="proj-date">2025 — Ongoing</div>
-          <a href="https://github.com/Moinkhokhar1/offlinepayment" class="proj-link" target="_blank">GitHub ↗</a>
+          <a href="https://github.com/Moinkhokhar1/NextPay.git" class="proj-link" target="_blank">GitHub ↗</a>
         </div>
       </div>
 
