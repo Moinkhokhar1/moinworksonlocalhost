@@ -1,297 +1,829 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moin Khokhar — Backend & Full Stack Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#F2ECDA;
-    --panel:#FFFFFF;
-    --ink:#161A1F;
-    --red:#E5342B;
-    --red-dark:#B4241C;
-    --blue:#1F4FD8;
-    --blue-dark:#15379B;
-    --yellow:#FFCC33;
-    --green:#2FA84F;
-    --muted:#5B5A52;
-    --sans:'Archivo', sans-serif;
-    --display:'Bangers', cursive;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.6;
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
-  }
-  a{color:inherit;}
-  ::selection{background:var(--yellow); color:var(--ink);}
-  a:focus-visible, button:focus-visible{outline:3px solid var(--blue); outline-offset:2px;}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moin Khokhar — Backend & Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Archivo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --paper: #F2ECDA;
+            --panel: #FFFFFF;
+            --ink: #161A1F;
+            --red: #E5342B;
+            --red-dark: #B4241C;
+            --blue: #1F4FD8;
+            --blue-dark: #15379B;
+            --yellow: #FFCC33;
+            --green: #2FA84F;
+            --muted: #5B5A52;
+            --sans: 'Archivo', sans-serif;
+            --display: 'Bangers', cursive;
+        }
 
-  .halftone{
-    background-image:radial-gradient(var(--ink) 1px, transparent 1.4px);
-    background-size:11px 11px;
-    opacity:0.06;
-    position:absolute; inset:0; pointer-events:none;
-  }
+        * {
+            box-sizing: border-box;
+        }
 
-  /* nav */
-  header.site{
-    position:sticky; top:0; z-index:30;
-    background:var(--paper);
-    border-bottom:4px solid var(--ink);
-  }
-  nav{display:flex; align-items:center; justify-content:space-between; height:70px;}
-  .brand{font-family:var(--display); font-size:26px; letter-spacing:0.5px; display:flex; align-items:center; gap:10px;}
-  .brand-badge{
-    width:34px; height:34px; border-radius:50%; background:var(--red);
-    border:3px solid var(--ink); display:flex; align-items:center; justify-content:center;
-    color:var(--paper); font-family:var(--display); font-size:15px; transform:rotate(-6deg);
-  }
-  .navlinks{display:flex; gap:26px; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.03em;}
-  .navlinks a{text-decoration:none; position:relative; padding:4px 0;}
-  .navlinks a::after{
-    content:""; position:absolute; left:0; bottom:0; width:0; height:3px; background:var(--red);
-    transition:width .2s;
-  }
-  .navlinks a:hover::after{width:100%;}
-  .nav-toggle{display:none;}
+        html {
+            scroll-behavior: smooth;
+        }
 
-  /* hero */
-  .hero{position:relative; overflow:hidden; padding:100px 0 90px; border-bottom:4px solid var(--ink);}
-  .hero .halftone{opacity:0.09;}
-  .eyebrow-tag{
-    display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:12.5px;
-    text-transform:uppercase; letter-spacing:0.08em; background:var(--ink); color:var(--paper);
-    padding:6px 14px; border-radius:3px; transform:rotate(-2deg); margin-bottom:22px;
-  }
-  .eyebrow-tag .beat{
-    width:8px; height:8px; border-radius:50%; background:var(--yellow);
-    animation:beat 1.6s ease-in-out infinite;
-  }
-  @keyframes beat{0%,100%{transform:scale(1);} 50%{transform:scale(1.5);}}
-  h1.title{
-    font-family:var(--display); font-weight:400;
-    font-size:clamp(52px, 9vw, 108px); line-height:0.92; margin:0 0 8px;
-    color:var(--paper);
-    -webkit-text-stroke:3px var(--ink);
-    text-shadow:
-      5px 5px 0 var(--red),
-      9px 9px 0 var(--ink);
-    letter-spacing:1px;
-  }
-  .subtitle{
-    font-family:var(--display); font-size:clamp(22px,3.4vw,32px); color:var(--blue);
-    -webkit-text-stroke:1.4px var(--ink);
-    margin:0 0 26px;
-  }
-  p.lede{max-width:600px; font-size:16.5px; color:#3A3830; margin:0 0 32px;}
-  .badges{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:38px;}
-  .badge{
-    font-weight:700; font-size:12.5px; padding:6px 13px; border-radius:3px;
-    background:var(--panel); border:2.5px solid var(--ink); color:var(--ink);
-  }
-  .badge.avail{background:var(--yellow);}
-  .cta-row{display:flex; flex-wrap:wrap; gap:16px;}
-  .btn{
-    font-family:var(--sans); font-weight:800; font-size:14.5px; text-transform:uppercase; letter-spacing:0.03em;
-    padding:14px 26px; border-radius:4px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
-    border:3px solid var(--ink); box-shadow:5px 5px 0 var(--ink); transition:transform .12s, box-shadow .12s;
-  }
-  .btn:hover{transform:translate(-2px,-2px); box-shadow:7px 7px 0 var(--ink);}
-  .btn:active{transform:translate(1px,1px); box-shadow:3px 3px 0 var(--ink);}
-  .btn-red{background:var(--red); color:var(--paper);}
-  .btn-blue{background:var(--blue); color:var(--paper);}
-  .btn-paper{background:var(--panel); color:var(--ink);}
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            line-height: 1.6;
+        }
 
-  /* sections */
-  section{padding:72px 0; border-bottom:4px solid var(--ink); position:relative;}
-  .issue-no{
-    display:inline-block; font-family:var(--display); font-size:16px; color:var(--paper);
-    background:var(--red); border:2.5px solid var(--ink); padding:3px 12px; border-radius:3px;
-    transform:rotate(-2deg); margin-bottom:14px;
-  }
-  h2.section-title{
-    font-family:var(--display); font-size:clamp(34px,4.6vw,50px); font-weight:400; margin:0 0 40px;
-    color:var(--ink);
-  }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
 
-  /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:44px;}
-  .about-grid p{font-size:16px; color:#3A3830;}
-  .stat-panel{
-    background:var(--panel); border:3px solid var(--ink); border-radius:6px;
-    box-shadow:6px 6px 0 var(--ink); padding:22px; display:grid; grid-template-columns:1fr 1fr; gap:20px;
-  }
-  .stat{border-left:4px solid var(--blue); padding-left:14px;}
-  .stat b{display:block; font-family:var(--display); font-size:32px; color:var(--ink);}
-  .stat span{font-size:12px; font-weight:700; text-transform:uppercase; color:var(--muted);}
+            * {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
 
-  /* powers / skills */
-  .power-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
-  .power-card{
-    background:var(--panel); border:3px solid var(--ink); border-radius:6px; padding:22px 24px;
-    box-shadow:6px 6px 0 var(--ink); transition:transform .15s, box-shadow .15s;
-  }
-  .power-card:hover{transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink);}
-  .power-head{
-    font-family:var(--display); font-size:19px; color:var(--blue); margin:0 0 14px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .pill-row{display:flex; flex-wrap:wrap; gap:8px;}
-  .pill{font-size:13px; font-weight:600; padding:6px 12px; border-radius:20px; background:var(--paper); border:2px solid var(--ink);}
+        a {
+            color: inherit;
+        }
 
-  /* issues / projects */
-  .issue-list{display:flex; flex-direction:column; gap:20px;}
-  .issue-card{
-    background:var(--panel); border:3px solid var(--ink); border-radius:6px;
-    box-shadow:7px 7px 0 var(--ink); padding:26px 28px; transition:transform .15s, box-shadow .15s;
-  }
-  .issue-card:hover{transform:translate(-3px,-3px); box-shadow:10px 10px 0 var(--ink);}
-  .issue-top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px;}
-  .status-tag{
-    font-weight:800; font-size:11.5px; text-transform:uppercase; padding:4px 11px; border-radius:3px;
-    border:2px solid var(--ink);
-  }
-  .status-tag.ongoing{background:var(--yellow); color:var(--ink);}
-  .status-tag.complete{background:var(--blue); color:var(--paper);}
-  h3.issue-title{font-family:var(--display); font-size:24px; font-weight:400; margin:0 0 10px; color:var(--ink);}
-  .issue-desc{font-size:14.5px; color:#3A3830; margin:0 0 14px; max-width:680px;}
-  .issue-meta{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;}
-  .tag{font-size:11.5px; font-weight:700; border:2px solid var(--ink); padding:3px 9px; border-radius:3px; background:var(--paper);}
-  .issue-foot{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;}
-  .issue-date{font-size:12.5px; font-weight:700; color:var(--muted); text-transform:uppercase;}
-  .issue-links{display:flex; gap:16px;}
-  .issue-links a{font-weight:800; font-size:13px; color:var(--red); text-decoration:none;}
-  .issue-links a:hover{color:var(--blue);}
+        ::selection {
+            background: var(--yellow);
+            color: var(--ink);
+        }
 
-  /* victories / achievements */
-  .victory-list{display:flex; flex-direction:column; gap:14px;}
-  .victory{
-    display:flex; gap:16px; align-items:flex-start;
-    background:var(--panel); border:3px solid var(--ink); border-radius:6px;
-    box-shadow:5px 5px 0 var(--ink); padding:18px 22px;
-  }
-  .victory-badge{
-    flex:none; width:40px; height:40px; border-radius:50%; background:var(--yellow);
-    border:2.5px solid var(--ink); display:flex; align-items:center; justify-content:center;
-    font-family:var(--display); font-size:17px; transform:rotate(-4deg);
-  }
-  .victory h4{margin:0 0 4px; font-size:16px; font-weight:800;}
-  .victory p{margin:0; font-size:13.5px; color:var(--muted);}
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--blue);
+            outline-offset: 2px;
+        }
 
-  /* contact */
-  .speech-panel{
-    background:var(--panel); border:3px solid var(--ink); border-radius:14px;
-    box-shadow:8px 8px 0 var(--ink); padding:40px; position:relative;
-  }
-  .speech-panel::after{
-    content:""; position:absolute; left:60px; bottom:-22px; width:0; height:0;
-    border-left:16px solid transparent; border-right:16px solid transparent; border-top:22px solid var(--ink);
-  }
-  .speech-panel::before{
-    content:""; position:absolute; left:63px; bottom:-16px; width:0; height:0; z-index:1;
-    border-left:13px solid transparent; border-right:13px solid transparent; border-top:18px solid var(--panel);
-  }
-  .call-title{font-family:var(--display); font-size:30px; color:var(--red); margin:0 0 20px;}
-  .contact-rows{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:30px;}
-  .contact-row{
-    display:flex; align-items:center; gap:10px; font-weight:700; font-size:14px;
-    text-decoration:none; padding:12px 16px; border:2.5px solid var(--ink); border-radius:6px;
-    background:var(--paper); transition:background .15s;
-  }
-  .contact-row:hover{background:var(--yellow);}
-  .contact-row .k{color:var(--muted); font-weight:600;}
+        .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-  footer{padding:36px 0; font-weight:700; font-size:12.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; text-transform:uppercase;}
+        .halftone {
+            background-image: radial-gradient(var(--ink) 1px, transparent 1.4px);
+            background-size: 11px 11px;
+            opacity: 0.06;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
 
-  .reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease;}
-  .reveal.in{opacity:1; transform:none;}
+        /* nav */
+        header.site {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: var(--paper);
+            border-bottom: 4px solid var(--ink);
+        }
 
-  /* spider rig */
-  .spider-rig{
-    position:fixed; top:0; right:6%; z-index:500; pointer-events:none;
-    transform-origin:50% 0%;
-    animation:spiderSway 4.5s ease-in-out infinite;
-    animation-play-state:paused;
-  }
-  .spider-rig.idle{animation-play-state:running;}
-  @keyframes spiderSway{
-    0%,100%{transform:rotate(-3deg);}
-    50%{transform:rotate(3deg);}
-  }
-  .thread{
-    width:1px; height:0; background:var(--ink); margin:0 auto;
-    transition:height 1.5s cubic-bezier(.22,1.3,.4,1);
-  }
-  .spider{
-    font-family:'Courier New', monospace;
-    font-size:11px;
-    line-height:1.05;
-    color:var(--ink);
-    text-align:center;
-    white-space:pre;
-    width:max-content;
-    margin:-4px auto 0;
-    user-select:none;
-    display:block;
-  }
-  .spider.shoot{animation:spiderKick .25s ease-out;}
-  @keyframes spiderKick{
-    0%{transform:rotate(0deg);}
-    35%{transform:rotate(-10deg);}
-    70%{transform:rotate(6deg);}
-    100%{transform:rotate(0deg);}
-  }
-  #webCanvas{position:fixed; inset:0; width:100vw; height:100vh; z-index:499; pointer-events:none;}
-  .web-shot{stroke:var(--ink); stroke-width:1.4; fill:none; opacity:0.75;}
-  .piu-text{
-    font-family:var(--display);
-    font-weight:400;
-    font-size:20px;
-    fill:var(--red);
-    stroke:var(--ink);
-    stroke-width:0.6px;
-    paint-order:stroke fill;
-    letter-spacing:0.5px;
-  }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
 
-  @media (max-width:760px){
-    .about-grid{grid-template-columns:1fr;}
-    .power-grid{grid-template-columns:1fr;}
-    .stat-panel{grid-template-columns:1fr 1fr;}
-    .contact-rows{grid-template-columns:1fr;}
-    .navlinks{
-      position:fixed; top:70px; left:0; right:0; background:var(--paper);
-      border-bottom:4px solid var(--ink); flex-direction:column; padding:18px 24px; gap:18px; display:none;
-    }
-    .navlinks.open{display:flex;}
-    .nav-toggle{
-      display:flex; background:var(--panel); border:2.5px solid var(--ink); border-radius:6px;
-      width:38px; height:38px; align-items:center; justify-content:center; font-weight:800; cursor:pointer;
-    }
-  }
-</style>
+        .brand {
+            font-family: var(--display);
+            font-size: 26px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--red);
+            border: 3px solid var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--paper);
+            font-family: var(--display);
+            font-size: 15px;
+            transform: rotate(-6deg);
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 26px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .navlinks a {
+            text-decoration: none;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .navlinks a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background: var(--red);
+            transition: width .2s;
+        }
+
+        .navlinks a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+        }
+
+        /* hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0 90px;
+            border-bottom: 4px solid var(--ink);
+        }
+
+        .hero .halftone {
+            opacity: 0.09;
+        }
+
+        .eyebrow-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 12.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: var(--ink);
+            color: var(--paper);
+            padding: 6px 14px;
+            border-radius: 3px;
+            transform: rotate(-2deg);
+            margin-bottom: 22px;
+        }
+
+        .eyebrow-tag .beat {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--yellow);
+            animation: beat 1.6s ease-in-out infinite;
+        }
+
+        @keyframes beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+        }
+
+        h1.title {
+            font-family: var(--display);
+            font-weight: 400;
+            font-size: clamp(52px, 9vw, 108px);
+            line-height: 0.92;
+            margin: 0 0 8px;
+            color: var(--paper);
+            -webkit-text-stroke: 3px var(--ink);
+            text-shadow:
+                5px 5px 0 var(--red),
+                9px 9px 0 var(--ink);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-family: var(--display);
+            font-size: clamp(22px, 3.4vw, 32px);
+            color: var(--blue);
+            -webkit-text-stroke: 1.4px var(--ink);
+            margin: 0 0 26px;
+        }
+
+        p.lede {
+            max-width: 600px;
+            font-size: 16.5px;
+            color: #3A3830;
+            margin: 0 0 32px;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 38px;
+        }
+
+        .badge {
+            font-weight: 700;
+            font-size: 12.5px;
+            padding: 6px 13px;
+            border-radius: 3px;
+            background: var(--panel);
+            border: 2.5px solid var(--ink);
+            color: var(--ink);
+        }
+
+        .badge.avail {
+            background: var(--yellow);
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .btn {
+            font-family: var(--sans);
+            font-weight: 800;
+            font-size: 14.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 14px 26px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 3px solid var(--ink);
+            box-shadow: 5px 5px 0 var(--ink);
+            transition: transform .12s, box-shadow .12s;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 var(--ink);
+        }
+
+        .btn:active {
+            transform: translate(1px, 1px);
+            box-shadow: 3px 3px 0 var(--ink);
+        }
+
+        .btn-red {
+            background: var(--red);
+            color: var(--paper);
+        }
+
+        .btn-blue {
+            background: var(--blue);
+            color: var(--paper);
+        }
+
+        .btn-paper {
+            background: var(--panel);
+            color: var(--ink);
+        }
+
+        /* sections */
+        section {
+            padding: 72px 0;
+            border-bottom: 4px solid var(--ink);
+            position: relative;
+        }
+
+        .issue-no {
+            display: inline-block;
+            font-family: var(--display);
+            font-size: 16px;
+            color: var(--paper);
+            background: var(--red);
+            border: 2.5px solid var(--ink);
+            padding: 3px 12px;
+            border-radius: 3px;
+            transform: rotate(-2deg);
+            margin-bottom: 14px;
+        }
+
+        h2.section-title {
+            font-family: var(--display);
+            font-size: clamp(34px, 4.6vw, 50px);
+            font-weight: 400;
+            margin: 0 0 40px;
+            color: var(--ink);
+        }
+
+        /* about */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 44px;
+        }
+
+        .about-grid p {
+            font-size: 16px;
+            color: #3A3830;
+        }
+
+        .stat-panel {
+            background: var(--panel);
+            border: 3px solid var(--ink);
+            border-radius: 6px;
+            box-shadow: 6px 6px 0 var(--ink);
+            padding: 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat {
+            border-left: 4px solid var(--blue);
+            padding-left: 14px;
+        }
+
+        .stat b {
+            display: block;
+            font-family: var(--display);
+            font-size: 32px;
+            color: var(--ink);
+        }
+
+        .stat span {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* powers / skills */
+        .power-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .power-card {
+            background: var(--panel);
+            border: 3px solid var(--ink);
+            border-radius: 6px;
+            padding: 22px 24px;
+            box-shadow: 6px 6px 0 var(--ink);
+            transition: transform .15s, box-shadow .15s;
+        }
+
+        .power-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0 var(--ink);
+        }
+
+        .power-head {
+            font-family: var(--display);
+            font-size: 19px;
+            color: var(--blue);
+            margin: 0 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: var(--paper);
+            border: 2px solid var(--ink);
+        }
+
+        /* issues / projects */
+        .issue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .issue-card {
+            background: var(--panel);
+            border: 3px solid var(--ink);
+            border-radius: 6px;
+            box-shadow: 7px 7px 0 var(--ink);
+            padding: 26px 28px;
+            transition: transform .15s, box-shadow .15s;
+        }
+
+        .issue-card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 10px 10px 0 var(--ink);
+        }
+
+        .issue-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .status-tag {
+            font-weight: 800;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            padding: 4px 11px;
+            border-radius: 3px;
+            border: 2px solid var(--ink);
+        }
+
+        .status-tag.ongoing {
+            background: var(--yellow);
+            color: var(--ink);
+        }
+
+        .status-tag.complete {
+            background: var(--blue);
+            color: var(--paper);
+        }
+
+        h3.issue-title {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            margin: 0 0 10px;
+            color: var(--ink);
+        }
+
+        .issue-desc {
+            font-size: 14.5px;
+            color: #3A3830;
+            margin: 0 0 14px;
+            max-width: 680px;
+        }
+
+        .issue-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .tag {
+            font-size: 11.5px;
+            font-weight: 700;
+            border: 2px solid var(--ink);
+            padding: 3px 9px;
+            border-radius: 3px;
+            background: var(--paper);
+        }
+
+        .issue-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .issue-date {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .issue-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .issue-links a {
+            font-weight: 800;
+            font-size: 13px;
+            color: var(--red);
+            text-decoration: none;
+        }
+
+        .issue-links a:hover {
+            color: var(--blue);
+        }
+
+        /* victories / achievements */
+        .victory-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .victory {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: var(--panel);
+            border: 3px solid var(--ink);
+            border-radius: 6px;
+            box-shadow: 5px 5px 0 var(--ink);
+            padding: 18px 22px;
+        }
+
+        .victory-badge {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--yellow);
+            border: 2.5px solid var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--display);
+            font-size: 17px;
+            transform: rotate(-4deg);
+        }
+
+        .victory h4 {
+            margin: 0 0 4px;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .victory p {
+            margin: 0;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        /* contact */
+        .speech-panel {
+            background: var(--panel);
+            border: 3px solid var(--ink);
+            border-radius: 14px;
+            box-shadow: 8px 8px 0 var(--ink);
+            padding: 40px;
+            position: relative;
+        }
+
+        .speech-panel::after {
+            content: "";
+            position: absolute;
+            left: 60px;
+            bottom: -22px;
+            width: 0;
+            height: 0;
+            border-left: 16px solid transparent;
+            border-right: 16px solid transparent;
+            border-top: 22px solid var(--ink);
+        }
+
+        .speech-panel::before {
+            content: "";
+            position: absolute;
+            left: 63px;
+            bottom: -16px;
+            width: 0;
+            height: 0;
+            z-index: 1;
+            border-left: 13px solid transparent;
+            border-right: 13px solid transparent;
+            border-top: 18px solid var(--panel);
+        }
+
+        .call-title {
+            font-family: var(--display);
+            font-size: 30px;
+            color: var(--red);
+            margin: 0 0 20px;
+        }
+
+        .contact-rows {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 12px 16px;
+            border: 2.5px solid var(--ink);
+            border-radius: 6px;
+            background: var(--paper);
+            transition: background .15s;
+        }
+
+        .contact-row:hover {
+            background: var(--yellow);
+        }
+
+        .contact-row .k {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        footer {
+            padding: 36px 0;
+            font-weight: 700;
+            font-size: 12.5px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* spider rig */
+        .spider-rig {
+            position: fixed;
+            top: 0;
+            right: 6%;
+            z-index: 500;
+            pointer-events: none;
+            transform-origin: 50% 0%;
+            animation: spiderSway 4.5s ease-in-out infinite;
+            animation-play-state: paused;
+        }
+
+        .spider-rig.idle {
+            animation-play-state: running;
+        }
+
+        @keyframes spiderSway {
+
+            0%,
+            100% {
+                transform: rotate(-3deg);
+            }
+
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+
+        .thread {
+            width: 1px;
+            height: 0;
+            background: var(--ink);
+            margin: 0 auto;
+            transition: height 1.5s cubic-bezier(.22, 1.3, .4, 1);
+        }
+
+        .spider {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.05;
+            color: var(--ink);
+            text-align: center;
+            white-space: pre;
+            width: max-content;
+            margin: -4px auto 0;
+            user-select: none;
+            display: block;
+        }
+
+        .spider.shoot {
+            animation: spiderKick .25s ease-out;
+        }
+
+        @keyframes spiderKick {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            35% {
+                transform: rotate(-10deg);
+            }
+
+            70% {
+                transform: rotate(6deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        #webCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 499;
+            pointer-events: none;
+        }
+
+        .web-shot {
+            stroke: var(--ink);
+            stroke-width: 1.4;
+            fill: none;
+            opacity: 0.75;
+        }
+
+        .piu-text {
+            font-family: var(--display);
+            font-weight: 400;
+            font-size: 20px;
+            fill: var(--red);
+            stroke: var(--ink);
+            stroke-width: 0.6px;
+            paint-order: stroke fill;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width:760px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .power-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-panel {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-rows {
+                grid-template-columns: 1fr;
+            }
+
+            .navlinks {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--paper);
+                border-bottom: 4px solid var(--ink);
+                flex-direction: column;
+                padding: 18px 24px;
+                gap: 18px;
+                display: none;
+            }
+
+            .navlinks.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+                background: var(--panel);
+                border: 2.5px solid var(--ink);
+                border-radius: 6px;
+                width: 38px;
+                height: 38px;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                cursor: pointer;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<svg id="webCanvas" aria-hidden="true"></svg>
+    <svg id="webCanvas" aria-hidden="true"></svg>
 
-<div class="spider-rig" id="spiderRig">
-  <div class="thread" id="spiderThread"></div>
-  <pre class="spider" id="spiderSvg" aria-hidden="true">⠀
+    <div class="spider-rig" id="spiderRig">
+        <div class="thread" id="spiderThread"></div>
+        <pre class="spider" id="spiderSvg" aria-hidden="true">⠀
   ⠀⣠⠂⢀⣠⡴⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⢤⣄⠀⠐⣄⠀⠀⠀
 ⠀⢀⣾⠃⢰⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⡆⠸⣧⠀⠀
 ⢀⣾⡇⠀⠘⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠁⠀⢹⣧⠀
@@ -310,394 +842,468 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⡄⠀⠀⠀⠀⣰⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠆⠀⠀⠐⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
   </pre>
-</div>
-
-<header class="site">
-  <div class="wrap">
-    <nav>
-      <div class="brand"><span class="brand-badge">MK</span> Moin Khokhar</div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
-      <div class="navlinks" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#skills">Powers</a>
-        <a href="#projects">Issues</a>
-        <a href="#achievements">Victories</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="halftone"></div>
-    <div class="wrap" style="position:relative;">
-      <span class="eyebrow-tag"><span class="beat"></span>Available for hire</span>
-      <h1 class="title">MOIN<br>KHOKHAR</h1>
-      <p class="subtitle">Backend &amp; Full-Stack Developer</p>
-      <p class="lede">Based in Vadodara, Gujarat. I build systems that keep working when the signal drops — offline-first wallets, payment gateways, IoT dashboards, and the backend that holds it all together. Currently finishing a B.Tech in Computer Science at ITM (SLS) Baroda University.</p>
-      <div class="badges">
-        <span class="badge">Java</span>
-        <span class="badge">PHP / Laravel</span>
-        <span class="badge">React</span>
-        <span class="badge">Node.js</span>
-        <span class="badge">MySQL</span>
-        <span class="badge">Android</span>
-      </div>
-      <div class="cta-row">
-        <a class="btn btn-red" href="#projects">View the issues</a>
-        <a class="btn btn-blue" href="mailto:moinkhokhar2730vdr@gmail.com">Get in touch</a>
-        <a class="btn btn-paper" href="moin_khokhar_resume.html">Grab my resume</a>
-      </div>
     </div>
-  </section>
 
-  <section id="about">
-    <div class="wrap">
-      <span class="issue-no">FILE 01</span>
-      <h2 class="section-title">Origin story</h2>
-      <div class="about-grid reveal">
-        <p>Full-stack developer with a backend-first instinct — from REST APIs and payment gateways to Android apps and IoT sensor networks. Most of what's below started as a hackathon idea or a "does this even work offline" question, and turned into something people actually use.</p>
-        <div class="stat-panel">
-          <div class="stat"><b>6+</b><span>Projects shipped</span></div>
-          <div class="stat"><b>8.63</b><span>Current SPI</span></div>
-          <div class="stat"><b>5+</b><span>Tech stacks</span></div>
-          <div class="stat"><b>3×</b><span>Hackathons &amp; awards</span></div>
+    <header class="site">
+        <div class="wrap">
+            <nav>
+                <div class="brand"><span class="brand-badge">MK</span> Moin Khokhar</div>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
+                <div class="navlinks" id="navLinks">
+                    <a href="#about">About</a>
+                    <a href="#skills">Powers</a>
+                    <a href="#projects">Issues</a>
+                    <a href="#achievements">Victories</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
         </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <section id="skills">
-    <div class="wrap">
-      <span class="issue-no">FILE 02</span>
-      <h2 class="section-title">Powers &amp; abilities</h2>
-      <div class="power-grid reveal">
-        <div class="power-card">
-          <p class="power-head">Backend</p>
-          <div class="pill-row">
-            <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">Node.js</span><span class="pill">Java</span><span class="pill">Python</span><span class="pill">REST APIs</span>
-          </div>
-        </div>
-        <div class="power-card">
-          <p class="power-head">Frontend</p>
-          <div class="pill-row">
-            <span class="pill">React</span><span class="pill">Angular</span><span class="pill">HTML / CSS</span><span class="pill">Bootstrap</span><span class="pill">JavaScript</span><span class="pill">XML</span>
-          </div>
-        </div>
-        <div class="power-card">
-          <p class="power-head">Data &amp; tools</p>
-          <div class="pill-row">
-            <span class="pill">MySQL</span><span class="pill">Android Studio</span><span class="pill">Git / GitHub</span><span class="pill">Razorpay</span><span class="pill">Nodemailer</span><span class="pill">Google Maps API</span>
-          </div>
-        </div>
-        <div class="power-card">
-          <p class="power-head">Systems</p>
-          <div class="pill-row">
-            <span class="pill">C++</span><span class="pill">Arduino / IoT</span><span class="pill">MQTT</span><span class="pill">DHT11 sensors</span><span class="pill">Offline sync</span><span class="pill">Payment gateways</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="wrap">
-      <span class="issue-no">FILE 03</span>
-      <h2 class="section-title">The issues</h2>
-      <div class="issue-list reveal">
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#01 — Offline Transaction System</h3>
-            <span class="status-tag ongoing">Ongoing</span>
-          </div>
-          <p class="issue-desc">Architecting a backend that lets money move without an internet connection — signed local queues, conflict resolution on reconnect, and a full audit trail so nothing gets lost.</p>
-          <div class="issue-meta"><span class="tag">Java / PHP</span><span class="tag">MySQL</span><span class="tag">REST API</span><span class="tag">Offline sync</span></div>
-          <div class="issue-foot">
-            <span class="issue-date">2025 — ongoing</span>
-            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/NextPay.git" target="_blank" rel="noopener">Read on GitHub →</a></div>
-          </div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#02 — E-Bandobast: Gujarat Police App</h3>
-            <span class="status-tag complete">SSIP 2024</span>
-          </div>
-          <p class="issue-desc">Centralized platform for police deployment, zone-wise duty assignment, and live coordination during public events and VIP visits across Gujarat.</p>
-          <div class="issue-meta"><span class="tag">Android / Java</span><span class="tag">Google Maps API</span><span class="tag">XML</span><span class="tag">Push notifications</span></div>
-          <div class="issue-foot">
-            <span class="issue-date">SSIP Hackathon 2024</span>
-            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/E-BANDOBAST.git" target="_blank" rel="noopener">Read on GitHub →</a></div>
-          </div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#03 — Visaease Travel Website</h3>
-            <span class="status-tag complete">Shipped</span>
-          </div>
-          <p class="issue-desc">Full-stack travel booking platform — auth, package browsing, cart with auto-pricing, Razorpay checkout, and an admin panel for managing bookings.</p>
-          <div class="issue-meta"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MySQL</span><span class="tag">Razorpay</span></div>
-          <div class="issue-foot"><span class="issue-date">June 2025</span><div class="issue-links"></div></div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#04 — NodeMap</h3>
-            <span class="status-tag complete">Shipped</span>
-          </div>
-          <p class="issue-desc">A small, colorful disk usage visualizer for the terminal - a lightweight reimagining of ncdu. Read-only: it never deletes or modifies anything.</p>
-          <div class="issue-meta"><span class="tag">JavaScript</span>
-          <div class="issue-foot">
-            <span class="issue-date">August 2026</span>
-            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/NodeMap.git" target="_blank" rel="noopener">Read on GitHub →</a></div>
-          </div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#05 — Pharmacy Management System</h3>
-            <span class="status-tag complete">Shipped</span>
-          </div>
-          <p class="issue-desc">Role-based system for managing medicine inventory, billing, and customers, with an automated cart-to-invoice flow.</p>
-          <div class="issue-meta"><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Razorpay</span><span class="tag">RBAC</span></div>
-          <div class="issue-foot"><span class="issue-date">April 2025</span><div class="issue-links"></div></div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#06 — Airline Reservation System</h3>
-            <span class="status-tag complete">Shipped</span>
-          </div>
-          <p class="issue-desc">Dynamic flight booking with session-based auth, search by origin/destination/date, and Razorpay checkout.</p>
-          <div class="issue-meta"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span><span class="tag">Razorpay</span></div>
-          <div class="issue-foot">
-            <span class="issue-date">April 2025</span>
-            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/airline_reservation_system.git" target="_blank" rel="noopener">Read on GitHub →</a></div>
-          </div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#07 — IoT Plant Watering System</h3>
-            <span class="status-tag complete">Shipped</span>
-          </div>
-          <p class="issue-desc">Auto-activates a water pump once soil moisture drops below threshold, with live monitoring over an MQTT dashboard and mobile alerts.</p>
-          <div class="issue-meta"><span class="tag">Arduino / C++</span><span class="tag">DHT11</span><span class="tag">MQTT</span></div>
-          <div class="issue-foot"><span class="issue-date">March 2024</span><div class="issue-links"></div></div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#08 — Satellite Data Analysis Platform</h3>
-            <span class="status-tag complete">Shipped</span>
-          </div>
-          <p class="issue-desc">Processes multi-band satellite imagery into NDVI and NDWI indices for vegetation health and water resource monitoring.</p>
-          <div class="issue-meta"><span class="tag">Python</span><span class="tag">Rasterio</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span></div>
-          <div class="issue-foot">
-            <span class="issue-date">2025</span>
-            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/satellite_analytics_plateform" target="_blank" rel="noopener">Read on GitHub →</a></div>
-          </div>
-        </div>
-
-        <div class="issue-card">
-          <div class="issue-top">
-            <h3 class="issue-title">#09 — TechnoLab Club Website</h3>
-            <span class="status-tag complete">Live</span>
-          </div>
-          <p class="issue-desc">Official site for the TechnoLab Club at ITM (SLS) Baroda University — events, members, and activities, built and maintained as a technical member.</p>
-          <div class="issue-meta"><span class="tag">Web development</span><span class="tag">Live on Render</span></div>
-          <div class="issue-foot">
-            <span class="issue-date">2025</span>
-            <div class="issue-links">
-              <a href="https://technolabclub-dibu.onrender.com/" target="_blank" rel="noopener">Visit live →</a>
-              <a href="https://github.com/Moinkhokhar1/TechnoLabClub" target="_blank" rel="noopener">GitHub →</a>
+    <main>
+        <section class="hero">
+            <div class="halftone"></div>
+            <div class="wrap" style="position:relative;">
+                <span class="eyebrow-tag"><span class="beat"></span>Available for hire</span>
+                <h1 class="title">MOIN<br>KHOKHAR</h1>
+                <p class="subtitle">Backend &amp; Full-Stack Developer</p>
+                <p class="lede">Based in Vadodara, Gujarat. I build systems that keep working when the signal drops —
+                    offline-first wallets, payment gateways, IoT dashboards, and the backend that holds it all together.
+                    Currently finishing a B.Tech in Computer Science at ITM (SLS) Baroda University.</p>
+                <div class="badges">
+                    <span class="badge">Java</span>
+                    <span class="badge">PHP / Laravel</span>
+                    <span class="badge">React</span>
+                    <span class="badge">Node.js</span>
+                    <span class="badge">MySQL</span>
+                    <span class="badge">Android</span>
+                </div>
+                <div class="cta-row">
+                    <a class="btn btn-red" href="#projects">View the issues</a>
+                    <a class="btn btn-blue" href="mailto:moinkhokhar2730vdr@gmail.com">Get in touch</a>
+                    <a class="btn btn-paper" href="moin_khokhar_resume.html">Grab my resume</a>
+                </div>
             </div>
-          </div>
+        </section>
+
+        <section id="about">
+            <div class="wrap">
+                <span class="issue-no">FILE 01</span>
+                <h2 class="section-title">Origin story</h2>
+                <div class="about-grid reveal">
+                    <p>Full-stack developer with a backend-first instinct — from REST APIs and payment gateways to
+                        Android apps and IoT sensor networks. Most of what's below started as a hackathon idea or a
+                        "does this even work offline" question, and turned into something people actually use.</p>
+                    <div class="stat-panel">
+                        <div class="stat"><b>6+</b><span>Projects shipped</span></div>
+                        <div class="stat"><b>8.63</b><span>Current SPI</span></div>
+                        <div class="stat"><b>5+</b><span>Tech stacks</span></div>
+                        <div class="stat"><b>3×</b><span>Hackathons &amp; awards</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="wrap">
+                <span class="issue-no">FILE 02</span>
+                <h2 class="section-title">Powers &amp; abilities</h2>
+                <div class="power-grid reveal">
+                    <div class="power-card">
+                        <p class="power-head">Backend</p>
+                        <div class="pill-row">
+                            <span class="pill">PHP</span><span class="pill">Laravel</span><span
+                                class="pill">Node.js</span><span class="pill">Java</span><span
+                                class="pill">Python</span><span class="pill">REST APIs</span>
+                        </div>
+                    </div>
+                    <div class="power-card">
+                        <p class="power-head">Frontend</p>
+                        <div class="pill-row">
+                            <span class="pill">React</span><span class="pill">Angular</span><span class="pill">HTML /
+                                CSS</span><span class="pill">Bootstrap</span><span class="pill">JavaScript</span><span
+                                class="pill">XML</span>
+                        </div>
+                    </div>
+                    <div class="power-card">
+                        <p class="power-head">Data &amp; tools</p>
+                        <div class="pill-row">
+                            <span class="pill">MySQL</span><span class="pill">Android Studio</span><span
+                                class="pill">Git / GitHub</span><span class="pill">Razorpay</span><span
+                                class="pill">Nodemailer</span><span class="pill">Google Maps API</span>
+                        </div>
+                    </div>
+                    <div class="power-card">
+                        <p class="power-head">Systems</p>
+                        <div class="pill-row">
+                            <span class="pill">C++</span><span class="pill">Arduino / IoT</span><span
+                                class="pill">MQTT</span><span class="pill">DHT11 sensors</span><span
+                                class="pill">Offline sync</span><span class="pill">Payment gateways</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="wrap">
+                <span class="issue-no">FILE 03</span>
+                <h2 class="section-title">The issues</h2>
+                <div class="issue-list reveal">
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#01 — Offline Transaction System</h3>
+                            <span class="status-tag ongoing">Ongoing</span>
+                        </div>
+                        <p class="issue-desc">Architecting a backend that lets money move without an internet connection
+                            — signed local queues, conflict resolution on reconnect, and a full audit trail so nothing
+                            gets lost.</p>
+                        <div class="issue-meta"><span class="tag">Java / PHP</span><span class="tag">MySQL</span><span
+                                class="tag">REST API</span><span class="tag">Offline sync</span></div>
+                        <div class="issue-foot">
+                            <span class="issue-date">2025 — ongoing</span>
+                            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/NextPay.git"
+                                    target="_blank" rel="noopener">Read on GitHub →</a></div>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#02 — E-Bandobast: Gujarat Police App</h3>
+                            <span class="status-tag complete">SSIP 2024</span>
+                        </div>
+                        <p class="issue-desc">Centralized platform for police deployment, zone-wise duty assignment, and
+                            live coordination during public events and VIP visits across Gujarat.</p>
+                        <div class="issue-meta"><span class="tag">Android / Java</span><span class="tag">Google Maps
+                                API</span><span class="tag">XML</span><span class="tag">Push notifications</span></div>
+                        <div class="issue-foot">
+                            <span class="issue-date">SSIP Hackathon 2024</span>
+                            <div class="issue-links"><a href="https://github.com/Moinkhokhar1/E-BANDOBAST.git"
+                                    target="_blank" rel="noopener">Read on GitHub →</a></div>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#03 — Visaease Travel Website</h3>
+                            <span class="status-tag complete">Shipped</span>
+                        </div>
+                        <p class="issue-desc">Full-stack travel booking platform — auth, package browsing, cart with
+                            auto-pricing, Razorpay checkout, and an admin panel for managing bookings.</p>
+                        <div class="issue-meta"><span class="tag">React</span><span class="tag">Node.js</span><span
+                                class="tag">MySQL</span><span class="tag">Razorpay</span></div>
+                        <div class="issue-foot"><span class="issue-date">June 2025</span>
+                            <div class="issue-links"></div>
+                        </div>
+                    </div>
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#04 — NodeMap</h3>
+                            <span class="status-tag complete">Shipped</span>
+                        </div>
+                          <p class="issue-desc">A small, colorful disk usage visualizer for the terminal - a lightweight reimagining of ncdu. Read-only: it never deletes or modifies anything.</p>
+                        <div class="issue-meta"><span class="tag">PHP</span><span class="tag">Disk Visualizer</span></div>
+                        <div class="issue-foot">
+                            <span class="issue-date">August 2026</span>
+                            <div class="issue-links"><a
+                                    href="https://github.com/Moinkhokhar1/NodeMap.git"
+                                    target="_blank" rel="noopener">Read on GitHub →</a></div>
+                        </div>
+                    </div>
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#05 — Pharmacy Management System</h3>
+                            <span class="status-tag complete">Shipped</span>
+                        </div>
+                        <p class="issue-desc">Role-based system for managing medicine inventory, billing, and customers,
+                            with an automated cart-to-invoice flow.</p>
+                        <div class="issue-meta"><span class="tag">Laravel</span><span class="tag">MySQL</span><span
+                                class="tag">Razorpay</span><span class="tag">RBAC</span></div>
+                        <div class="issue-foot"><span class="issue-date">April 2025</span>
+                            <div class="issue-links"></div>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#06 — Airline Reservation System</h3>
+                            <span class="status-tag complete">Shipped</span>
+                        </div>
+                        <p class="issue-desc">Dynamic flight booking with session-based auth, search by
+                            origin/destination/date, and Razorpay checkout.</p>
+                        <div class="issue-meta"><span class="tag">PHP</span><span class="tag">MySQL</span><span
+                                class="tag">Bootstrap</span><span class="tag">Razorpay</span></div>
+                        <div class="issue-foot">
+                            <span class="issue-date">April 2025</span>
+                            <div class="issue-links"><a
+                                    href="https://github.com/Moinkhokhar1/airline_reservation_system.git"
+                                    target="_blank" rel="noopener">Read on GitHub →</a></div>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#07 — IoT Plant Watering System</h3>
+                            <span class="status-tag complete">Shipped</span>
+                        </div>
+                        <p class="issue-desc">Auto-activates a water pump once soil moisture drops below threshold, with
+                            live monitoring over an MQTT dashboard and mobile alerts.</p>
+                        <div class="issue-meta"><span class="tag">Arduino / C++</span><span
+                                class="tag">DHT11</span><span class="tag">MQTT</span></div>
+                        <div class="issue-foot"><span class="issue-date">March 2024</span>
+                            <div class="issue-links"></div>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#08 — Satellite Data Analysis Platform</h3>
+                            <span class="status-tag complete">Shipped</span>
+                        </div>
+                        <p class="issue-desc">Processes multi-band satellite imagery into NDVI and NDWI indices for
+                            vegetation health and water resource monitoring.</p>
+                        <div class="issue-meta"><span class="tag">Python</span><span class="tag">Rasterio</span><span
+                                class="tag">NumPy</span><span class="tag">Matplotlib</span></div>
+                        <div class="issue-foot">
+                            <span class="issue-date">2025</span>
+                            <div class="issue-links"><a
+                                    href="https://github.com/Moinkhokhar1/satellite_analytics_plateform" target="_blank"
+                                    rel="noopener">Read on GitHub →</a></div>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <div class="issue-top">
+                            <h3 class="issue-title">#09 — TechnoLab Club Website</h3>
+                            <span class="status-tag complete">Live</span>
+                        </div>
+                        <p class="issue-desc">Official site for the TechnoLab Club at ITM (SLS) Baroda University —
+                            events, members, and activities, built and maintained as a technical member.</p>
+                        <div class="issue-meta"><span class="tag">Web development</span><span class="tag">Live on
+                                Render</span></div>
+                        <div class="issue-foot">
+                            <span class="issue-date">2025</span>
+                            <div class="issue-links">
+                                <a href="https://technolabclub-dibu.onrender.com/" target="_blank" rel="noopener">Visit
+                                    live →</a>
+                                <a href="https://github.com/Moinkhokhar1/TechnoLabClub" target="_blank"
+                                    rel="noopener">GitHub →</a>
+                            </div>
+                        </div>
+                    </div>
+
+        </section>
+
+        <section id="achievements">
+            <div class="wrap">
+                <span class="issue-no">FILE 04</span>
+                <h2 class="section-title">Victories</h2>
+                <div class="victory-list reveal">
+                    <div class="victory"><span class="victory-badge">🏆</span>
+                        <div>
+                            <h4>SSIP Hackathon 2024</h4>
+                            <p>Built E-Bandobast, a full police deployment platform, in a competitive hackathon
+                                environment.</p>
+                        </div>
+                    </div>
+                    <div class="victory"><span class="victory-badge">⭐</span>
+                        <div>
+                            <h4>Intern of the Month — Nexis Infotech</h4>
+                            <p>Recognised for outstanding contributions during an internship in Bharuch.</p>
+                        </div>
+                    </div>
+                    <div class="victory"><span class="victory-badge">🎖️</span>
+                        <div>
+                            <h4>ILLUMINATI 2025 — 2nd place</h4>
+                            <p>Secured second position at ITM BU's cultural fest.</p>
+                        </div>
+                    </div>
+                    <div class="victory"><span class="victory-badge">💻</span>
+                        <div>
+                            <h4>GTU website improvement</h4>
+                            <p>Improved the UI of Gujarat Technological University's official site, adding a dedicated
+                                result-view feature.</p>
+                        </div>
+                    </div>
+                    <div class="victory"><span class="victory-badge">🧑‍💻</span>
+                        <div>
+                            <h4>GDGoC 2025 Technical Lead</h4>
+                            <p>Led Google Developer Groups on Campus events and coordinated across the program as
+                                technical lead.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="border-bottom:none;">
+            <div class="wrap">
+                <span class="issue-no">FILE 05</span>
+                <h2 class="section-title">Call for backup</h2>
+                <div class="speech-panel reveal">
+                    <p class="call-title">Let's team up.</p>
+                    <div class="contact-rows">
+                        <a class="contact-row" href="mailto:moinkhokhar2730vdr@gmail.com"><span class="k">Email:</span>
+                            moinkhokhar2730vdr@gmail.com</a>
+                        <a class="contact-row" href="https://www.x.com/in/MoinKhokhar09"><span class="k">Twitter /
+                                X:</span> MoinKhokhar09</a>
+                        <a class="contact-row" href="https://www.linkedin.com/in/moinkhokhar" target="_blank"
+                            rel="noopener"><span class="k">LinkedIn:</span> moinkhokhar</a>
+                        <a class="contact-row" href="https://github.com/Moinkhokhar1" target="_blank"
+                            rel="noopener"><span class="k">GitHub:</span> Moinkhokhar1</a>
+                    </div>
+                    <div class="cta-row">
+                        <a class="btn btn-red" href="mailto:moinkhokhar2730vdr@gmail.com">Get in touch</a>
+                        <a class="btn btn-paper" href="moin_khokhar_resume.html">Grab my resume</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; width:100%;">
+            <span>© 2026 Moinworksonlocalhost</span>
+            <span>End of file</span>
         </div>
+    </footer>
 
-      </div>
-    </div>
-  </section>
+    <script>
+        var navToggle = document.getElementById('navToggle');
+        var navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', function () {
+            var open = navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', open);
+        });
+        navLinks.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () { navLinks.classList.remove('open'); });
+        });
 
-  <section id="achievements">
-    <div class="wrap">
-      <span class="issue-no">FILE 04</span>
-      <h2 class="section-title">Victories</h2>
-      <div class="victory-list reveal">
-        <div class="victory"><span class="victory-badge">🏆</span><div><h4>SSIP Hackathon 2024</h4><p>Built E-Bandobast, a full police deployment platform, in a competitive hackathon environment.</p></div></div>
-        <div class="victory"><span class="victory-badge">⭐</span><div><h4>Intern of the Month — Nexis Infotech</h4><p>Recognised for outstanding contributions during an internship in Bharuch.</p></div></div>
-        <div class="victory"><span class="victory-badge">🎖️</span><div><h4>ILLUMINATI 2025 — 2nd place</h4><p>Secured second position at ITM BU's cultural fest.</p></div></div>
-        <div class="victory"><span class="victory-badge">💻</span><div><h4>GTU website improvement</h4><p>Improved the UI of Gujarat Technological University's official site, adding a dedicated result-view feature.</p></div></div>
-        <div class="victory"><span class="victory-badge">🧑‍💻</span><div><h4>GDGoC 2025 Technical Lead</h4><p>Led Google Developer Groups on Campus events and coordinated across the program as technical lead.</p></div></div>
-      </div>
-    </div>
-  </section>
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('in'); }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 
-  <section id="contact" style="border-bottom:none;">
-    <div class="wrap">
-      <span class="issue-no">FILE 05</span>
-      <h2 class="section-title">Call for backup</h2>
-      <div class="speech-panel reveal">
-        <p class="call-title">Let's team up.</p>
-        <div class="contact-rows">
-          <a class="contact-row" href="mailto:moinkhokhar2730vdr@gmail.com"><span class="k">Email:</span> moinkhokhar2730vdr@gmail.com</a>
-          <a class="contact-row" href="https://www.x.com/in/MoinKhokhar09"><span class="k">Twitter / X:</span> MoinKhokhar09</a>
-          <a class="contact-row" href="https://www.linkedin.com/in/moinkhokhar" target="_blank" rel="noopener"><span class="k">LinkedIn:</span> moinkhokhar</a>
-          <a class="contact-row" href="https://github.com/Moinkhokhar1" target="_blank" rel="noopener"><span class="k">GitHub:</span> Moinkhokhar1</a>
-        </div>
-        <div class="cta-row">
-          <a class="btn btn-red" href="mailto:moinkhokhar2730vdr@gmail.com">Get in touch</a>
-          <a class="btn btn-paper" href="moin_khokhar_resume.html">Grab my resume</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
+        // spider: drop in, then idle sway
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var rig = document.getElementById('spiderRig');
+        var thread = document.getElementById('spiderThread');
+        var spiderEl = document.getElementById('spiderSvg');
+        var dropLength = window.innerWidth < 760 ? 120 : 190;
 
-<footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; width:100%;">
-    <span>© 2026 Moinworksonlocalhost</span>
-    <span>End of file</span>
-  </div>
-</footer>
+        function dropSpider() {
+            thread.style.height = dropLength + 'px';
+            setTimeout(function () { rig.classList.add('idle'); }, 1500);
+        }
+        if (reduceMotion) {
+            thread.style.transition = 'none';
+            thread.style.height = dropLength + 'px';
+        } else {
+            setTimeout(dropSpider, 500);
+        }
 
-<script>
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', function(){
-    var open = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', open);
-  });
-  navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
-  });
+        // web canvas sized to viewport
+        var webCanvas = document.getElementById('webCanvas');
+        function sizeCanvas() {
+            webCanvas.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+        }
+        sizeCanvas();
+        window.addEventListener('resize', sizeCanvas);
 
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){ entry.target.classList.add('in'); }
-    });
-  }, {threshold:0.15});
-  document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+        var PIU_WORDS = ['piu piu!', 'piu piu piu!'];
 
-  // spider: drop in, then idle sway
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var rig = document.getElementById('spiderRig');
-  var thread = document.getElementById('spiderThread');
-  var spiderEl = document.getElementById('spiderSvg');
-  var dropLength = window.innerWidth < 760 ? 120 : 190;
+        // "piu" sound effect, preloaded and cloned per-play so rapid clicks can overlap
+        var piuAudio = new Audio('piu.mp3');
+        piuAudio.preload = 'auto';
+        function playPiuSound() {
+            if (reduceMotion) return;
+            try {
+                var sfx = piuAudio.cloneNode(true);
+                sfx.volume = 0.7;
+                sfx.play().catch(function () { /* ignored: browser may block audio until first user gesture */ });
+            } catch (e) { }
+        }
 
-  function dropSpider(){
-    thread.style.height = dropLength + 'px';
-    setTimeout(function(){ rig.classList.add('idle'); }, 1500);
-  }
-  if(reduceMotion){
-    thread.style.transition = 'none';
-    thread.style.height = dropLength + 'px';
-  } else {
-    setTimeout(dropSpider, 500);
-  }
+        function shootWeb(x, y) {
+            playPiuSound();
+            var rect = spiderEl.getBoundingClientRect();
+            var originX = rect.left + rect.width * 0.5;
+            var originY = rect.top + rect.height * 0.94;
 
-  // web canvas sized to viewport
-  var webCanvas = document.getElementById('webCanvas');
-  function sizeCanvas(){
-    webCanvas.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
-  }
-  sizeCanvas();
-  window.addEventListener('resize', sizeCanvas);
+            var midX = (originX + x) / 2 + (Math.random() * 40 - 20);
+            var midY = (originY + y) / 2 + (Math.random() * 40 - 20);
+            var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', 'M' + originX + ' ' + originY + ' Q ' + midX + ' ' + midY + ' ' + x + ' ' + y);
+            path.setAttribute('class', 'web-shot');
+            var len = 300;
+            try { len = path.getTotalLength(); } catch (e) { }
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+            webCanvas.appendChild(path);
+            path.getBoundingClientRect();
+            path.style.transition = 'stroke-dashoffset 160ms ease-out';
+            path.style.strokeDashoffset = '0';
 
-  var PIU_WORDS = ['piu piu!', 'piu piu piu!'];
+            if (!reduceMotion) {
+                spiderEl.classList.remove('shoot');
+                void spiderEl.offsetWidth;
+                spiderEl.classList.add('shoot');
+            }
 
-  // "piu" sound effect, preloaded and cloned per-play so rapid clicks can overlap
-  var piuAudio = new Audio('piu.mp3');
-  piuAudio.preload = 'auto';
-  function playPiuSound(){
-    if(reduceMotion) return;
-    try{
-      var sfx = piuAudio.cloneNode(true);
-      sfx.volume = 0.7;
-      sfx.play().catch(function(){ /* ignored: browser may block audio until first user gesture */ });
-    }catch(e){}
-  }
+            // "piu piu" sound-effect text at the far end of the web, next to the green burst
+            var piuText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            var piuAngle = Math.atan2(y - originY, x - originX);
+            var piuX = x + Math.cos(piuAngle) * 22 + (Math.random() * 10 - 5);
+            var piuY = y + Math.sin(piuAngle) * 22 + (Math.random() * 10 - 5);
+            piuText.setAttribute('x', piuX);
+            piuText.setAttribute('y', piuY);
+            piuText.setAttribute('class', 'piu-text');
+            piuText.setAttribute('text-anchor', 'middle');
+            piuText.setAttribute('transform', 'rotate(' + (Math.random() * 16 - 8) + ' ' + piuX + ' ' + piuY + ')');
+            piuText.textContent = PIU_WORDS[Math.floor(Math.random() * PIU_WORDS.length)];
+            piuText.style.opacity = '0';
+            piuText.style.transition = 'opacity 120ms ease-out, transform 500ms ease-out';
+            webCanvas.appendChild(piuText);
+            piuText.getBoundingClientRect();
+            piuText.style.opacity = '1';
+            setTimeout(function () {
+                piuText.setAttribute('transform', piuText.getAttribute('transform') + ' translate(0,-14)');
+                piuText.style.transition = 'opacity 350ms ease-in, transform 400ms ease-out';
+                piuText.style.opacity = '0';
+            }, 250);
+            setTimeout(function () { piuText.remove(); }, 650);
 
-  function shootWeb(x, y){
-    playPiuSound();
-    var rect = spiderEl.getBoundingClientRect();
-    var originX = rect.left + rect.width * 0.5;
-    var originY = rect.top + rect.height * 0.94;
+            for (var i = 0; i < 5; i++) {
+                var ang = (Math.PI * 2 / 5) * i;
+                var lx = x + Math.cos(ang) * 3;
+                var ly = y + Math.sin(ang) * 3;
+                var lx2 = x + Math.cos(ang) * 14;
+                var ly2 = y + Math.sin(ang) * 14;
+                var burst = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                burst.setAttribute('x1', lx); burst.setAttribute('y1', ly);
+                burst.setAttribute('x2', lx2); burst.setAttribute('y2', ly2);
+                burst.setAttribute('class', 'web-burst');
+                burst.style.transition = 'opacity 300ms ease-in 250ms';
+                webCanvas.appendChild(burst);
+                setTimeout(function (b) { b.style.opacity = '0'; }, 300, burst);
+                setTimeout(function (b) { b.remove(); }, 650, burst);
+            }
 
-    var midX = (originX + x) / 2 + (Math.random() * 40 - 20);
-    var midY = (originY + y) / 2 + (Math.random() * 40 - 20);
-    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', 'M' + originX + ' ' + originY + ' Q ' + midX + ' ' + midY + ' ' + x + ' ' + y);
-    path.setAttribute('class', 'web-shot');
-    var len = 300;
-    try { len = path.getTotalLength(); } catch(e){}
-    path.style.strokeDasharray = len;
-    path.style.strokeDashoffset = len;
-    webCanvas.appendChild(path);
-    path.getBoundingClientRect();
-    path.style.transition = 'stroke-dashoffset 160ms ease-out';
-    path.style.strokeDashoffset = '0';
+            setTimeout(function () {
+                path.style.transition = 'opacity 350ms ease-in';
+                path.style.opacity = '0';
+            }, 550);
+            setTimeout(function () { path.remove(); }, 950);
+        }
 
-    if(!reduceMotion){
-      spiderEl.classList.remove('shoot');
-      void spiderEl.offsetWidth;
-      spiderEl.classList.add('shoot');
-    }
-
-    // "piu piu" sound-effect text at the far end of the web, next to the green burst
-    var piuText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    var piuAngle = Math.atan2(y - originY, x - originX);
-    var piuX = x + Math.cos(piuAngle) * 22 + (Math.random() * 10 - 5);
-    var piuY = y + Math.sin(piuAngle) * 22 + (Math.random() * 10 - 5);
-    piuText.setAttribute('x', piuX);
-    piuText.setAttribute('y', piuY);
-    piuText.setAttribute('class', 'piu-text');
-    piuText.setAttribute('text-anchor', 'middle');
-    piuText.setAttribute('transform', 'rotate(' + (Math.random() * 16 - 8) + ' ' + piuX + ' ' + piuY + ')');
-    piuText.textContent = PIU_WORDS[Math.floor(Math.random() * PIU_WORDS.length)];
-    piuText.style.opacity = '0';
-    piuText.style.transition = 'opacity 120ms ease-out, transform 500ms ease-out';
-    webCanvas.appendChild(piuText);
-    piuText.getBoundingClientRect();
-    piuText.style.opacity = '1';
-    setTimeout(function(){
-      piuText.setAttribute('transform', piuText.getAttribute('transform') + ' translate(0,-14)');
-      piuText.style.transition = 'opacity 350ms ease-in, transform 400ms ease-out';
-      piuText.style.opacity = '0';
-    }, 250);
-    setTimeout(function(){ piuText.remove(); }, 650);
-
-    for(var i=0;i<5;i++){
-      var ang = (Math.PI * 2 / 5) * i;
-      var lx = x + Math.cos(ang) * 3;
-      var ly = y + Math.sin(ang) * 3;
-      var lx2 = x + Math.cos(ang) * 14;
-      var ly2 = y + Math.sin(ang) * 14;
-      var burst = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      burst.setAttribute('x1', lx); burst.setAttribute('y1', ly);
-      burst.setAttribute('x2', lx2); burst.setAttribute('y2', ly2);
-      burst.setAttribute('class', 'web-burst');
-      burst.style.transition = 'opacity 300ms ease-in 250ms';
-      webCanvas.appendChild(burst);
-      setTimeout(function(b){ b.style.opacity = '0'; }, 300, burst);
-      setTimeout(function(b){ b.remove(); }, 650, burst);
-    }
-
-    setTimeout(function(){
-      path.style.transition = 'opacity 350ms ease-in';
-      path.style.opacity = '0';
-    }, 550);
-    setTimeout(function(){ path.remove(); }, 950);
-  }
-
-  document.addEventListener('click', function(e){
-    shootWeb(e.clientX, e.clientY);
-  });
-</script>
+        document.addEventListener('click', function (e) {
+            shootWeb(e.clientX, e.clientY);
+        });
+    </script>
 
 </body>
+
 </html>
