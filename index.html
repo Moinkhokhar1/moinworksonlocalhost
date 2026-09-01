@@ -98,30 +98,32 @@
             height: 70px;
         }
 
-        .brand {
-            font-family: var(--display);
-            font-size: 26px;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .brand-badge {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: var(--red);
-            border: 3px solid var(--ink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--paper);
-            font-family: var(--display);
-            font-size: 15px;
-            transform: rotate(-6deg);
-        }
+.brand-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 3px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transform: rotate(-6deg);
+    flex-shrink: 0;
+}
 
+.brand-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
         .navlinks {
             display: flex;
             gap: 26px;
@@ -847,7 +849,12 @@
     <header class="site">
         <div class="wrap">
             <nav>
-                <div class="brand"><span class="brand-badge">MK</span> Moin Khokhar</div>
+                <div class="brand">
+    <span class="brand-badge">
+        <img src="images/image.png" alt="Spider-Man">
+    </span>
+    Moin Khokhar
+</div>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">≡</button>
                 <div class="navlinks" id="navLinks">
                     <a href="#about">About</a>
