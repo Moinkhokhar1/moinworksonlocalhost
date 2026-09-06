@@ -1,709 +1,741 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Moin Khokhar — Resume</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root{
-      --paper:#F2ECDA;
-      --panel:#FFFFFF;
-      --ink:#161A1F;
-      --red:#E5342B;
-      --blue:#1F4FD8;
-      --yellow:#FFCC33;
-      --muted:#5B5A52;
-      --sans:'Archivo', sans-serif;
-      --display:'Bangers', cursive;
-    }
-
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-    }
-
-    body {
-      background: var(--paper);
-      font-family: var(--sans);
-      color: var(--ink);
-    }
-
-    /* ── RESUME (now fills the whole viewport, no card/border/shadow) ── */
-    .resume {
-      width: 100%;
-      min-height: 100vh;
-      background: var(--panel);
-    }
-
-    .topbar {
-      width: 100%;
-      background: var(--paper);
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .back-btn,
-    .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--sans);
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      padding: 10px 18px;
-      border: 3px solid var(--ink);
-      border-radius: 4px;
-      box-shadow: 4px 4px 0 var(--ink);
-      cursor: pointer;
-      transition: transform .12s, box-shadow .12s;
-      text-decoration: none;
-    }
-
-    .back-btn {
-      background: var(--panel);
-      color: var(--ink);
-    }
-
-    .download-btn {
-      background: var(--red);
-      color: var(--paper);
-    }
-
-    .download-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-    .back-btn:hover,
-    .download-btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--ink);
-    }
-
-    .back-btn:active,
-    .download-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: 2px 2px 0 var(--ink);
-    }
-
-    @media print {
-      .topbar { display: none; }
-    }
-
-    .header {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 48px 60px 36px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: end;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 4px solid var(--red);
-    }
-
-    .header .halftone{
-      position:absolute; inset:0;
-      background-image:radial-gradient(var(--paper) 1px, transparent 1.4px);
-      background-size:10px 10px;
-      opacity:0.07;
-      pointer-events:none;
-    }
-
-    .header-name {
-      font-family: var(--display);
-      font-size: 64px;
-      line-height: 0.95;
-      letter-spacing: 1px;
-      margin: 0 0 10px;
-      color: var(--paper);
-      -webkit-text-stroke: 1.5px var(--ink);
-      text-shadow: 3px 3px 0 var(--red);
-      position: relative;
-    }
-
-    .header-title {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin: 0 0 18px;
-      position: relative;
-    }
-
-    .header-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    .tag {
-      background: var(--panel);
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      padding: 5px 12px;
-      border: 2px solid var(--ink);
-      border-radius: 3px;
-      text-transform: uppercase;
-    }
-
-    .tag-accent {
-      background: var(--yellow);
-      border-color: var(--ink);
-      font-family: var(--sans);
-      font-weight: 800;
-    }
-
-    .contact-block { text-align: right; position: relative; }
-
-    .contact-block p {
-      margin: 0 0 6px;
-      font-size: 13px;
-      color: #C9C7BB;
-      line-height: 1.6;
-    }
-
-    .contact-block a {
-      color: var(--yellow);
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .body {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      min-height: calc(100vh - 200px);
-    }
-
-    .left {
-      background: var(--paper);
-      padding: 36px 32px;
-      border-right: 3px solid var(--ink);
-    }
-
-    .right { padding: 36px 48px; }
-
-    .sec-label {
-      font-family: var(--display);
-      font-size: 19px;
-      letter-spacing: 0.5px;
-      color: var(--red);
-      margin: 0 0 14px;
-      padding-bottom: 6px;
-      border-bottom: 3px solid var(--ink);
-    }
-
-    .section { margin-bottom: 28px; }
-
-    .skill-group-title {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--blue);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 10px 0 6px;
-    }
-
-    .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-
-    .pill {
-      background: var(--ink);
-      color: var(--paper);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 3px;
-    }
-
-    .pill-outline {
-      background: transparent;
-      color: var(--ink);
-      border: 2px solid var(--ink);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 3px;
-    }
-
-    .edu-item { margin-bottom: 16px; }
-
-    .edu-deg { font-size: 13px; font-weight: 700; line-height: 1.4; margin: 0 0 2px; }
-
-    .edu-inst { font-size: 12px; color: var(--muted); margin: 0 0 2px; }
-
-    .edu-score {
-      font-size: 11.5px;
-      font-family: var(--display);
-      color: var(--red);
-    }
-
-    .achieve-item {
-      font-size: 12px;
-      color: #3A3830;
-      line-height: 1.6;
-      margin-bottom: 8px;
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .achieve-item::before {
-      content: '⚡';
-      position: absolute;
-      left: 0;
-      font-size: 10px;
-      top: 2px;
-    }
-
-    .proj {
-      margin-bottom: 20px;
-      padding: 16px 18px;
-      border: 2.5px solid var(--ink);
-      border-radius: 6px;
-      box-shadow: 4px 4px 0 var(--ink);
-    }
-
-    .proj-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 8px;
-      gap: 10px;
-    }
-
-    .proj-name {
-      font-family: var(--display);
-      font-size: 17px;
-      color: var(--ink);
-      line-height: 1.3;
-      margin: 0;
-    }
-
-    .proj-date {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--paper);
-      background: var(--blue);
-      border: 2px solid var(--ink);
-      padding: 2px 8px;
-      border-radius: 3px;
-      white-space: nowrap;
-      margin-top: 2px;
-    }
-
-    .proj-tools { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
-
-    .tool {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--ink);
-      background: var(--paper);
-      border: 1.5px solid var(--ink);
-      padding: 3px 8px;
-      border-radius: 3px;
-      letter-spacing: 0.3px;
-    }
-
-    .tool-main { background: var(--yellow); font-weight: 800; }
-
-    .proj-desc { font-size: 12.5px; color: #3A3830; line-height: 1.65; margin: 0 0 8px; }
-
-    .feat-list { margin: 0; padding: 0; list-style: none; }
-
-    .feat-list li {
-      font-size: 12px;
-      color: #3A3830;
-      line-height: 1.6;
-      padding-left: 15px;
-      position: relative;
-      margin-bottom: 3px;
-    }
-
-    .feat-list li::before {
-      content: '»';
-      position: absolute;
-      left: 0;
-      color: var(--red);
-      font-weight: 800;
-    }
-
-    .summary-text { font-size: 13px; line-height: 1.75; color: #3A3830; margin: 0 0 6px; }
-
-    .highlight { background: var(--yellow); padding: 1px 5px; font-weight: 700; color: var(--ink); border-radius: 2px; }
-
-    .soft-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-
-    .soft { font-size: 12px; color: #3A3830; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-
-    .soft::before {
-      content: '';
-      width: 7px; height: 7px;
-      background: var(--red);
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    @media print {
-      .resume { max-width: 100%; }
-      .proj { box-shadow: none; }
-      .header .halftone { display: none; }
-    }
-
-    @media (max-width: 640px) {
-      .header { grid-template-columns: 1fr; gap: 16px; padding: 32px 24px 24px; }
-      .contact-block { text-align: left; }
-      .header-name { font-size: 40px; }
-      .body { grid-template-columns: 1fr; }
-      .left { border-right: none; border-bottom: 3px solid var(--ink); }
-      .right { padding: 28px 24px; }
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="topbar">
-    <a href="#" class="back-btn" onclick="goBack(event)">← Back</a>
-    <button class="download-btn" onclick="downloadResume()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-        stroke-linejoin="round">
-        <path d="M12 3v13M7 11l5 5 5-5" />
-        <path d="M5 21h14" />
-      </svg>
-      Download PDF
-    </button>
-  </div>
-
-  <div class="resume" id="resume">
-    <div class="header">
-      <div class="halftone"></div>
-      <div style="position:relative;">
-        <p class="header-name">Moin<br>Khokhar</p>
-        <p class="header-title">Backend + Full Stack Developer</p>
-        <div class="header-tags">
-          <span class="tag tag-accent">Available for hire</span>
-          <span class="tag">Java</span>
-          <span class="tag">PHP / Laravel</span>
-          <span class="tag">React JS</span>
-          <span class="tag">Node JS</span>
-          <span class="tag">MySQL</span>
-        </div>
-      </div>
-      <div class="contact-block">
-        <p>moinkhokhar2730vdr@gmail.com</p>
-        <p>+91 72010 74880</p>
-        <p>Vadodara, Gujarat</p>
-        <p><a href="https://www.linkedin.com/in/moinkhokhar">linkedin.com/in/moinkhokhar</a></p>
-        <p><a href="https://github.com/Moinkhokhar1">github.com/Moinkhokhar1</a></p>
-      </div>
-    </div>
-
-    <div class="body">
-      <div class="left">
-
-        <div class="section">
-          <p class="sec-label">Education</p>
-          <div class="edu-item">
-            <p class="edu-deg">B.Tech — Computer Science &amp; Engineering</p>
-            <p class="edu-inst">ITM(sls) Baroda University, Vadodara</p>
-            <p class="edu-score">SPI 8.63 · Pursuing</p>
-          </div>
-          <div class="edu-item">
-            <p class="edu-deg">Diploma — Computer Engineering</p>
-            <p class="edu-inst">Shri K.J. Polytechnic, Bharuch · GTU</p>
-            <p class="edu-score">CGPA 7.42</p>
-          </div>
-        </div>
-
-        <div class="section">
-          <p class="sec-label">Technical Skills</p>
-          <p class="skill-group-title">Backend</p>
-          <div class="skill-pills">
-            <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">Node JS</span><span
-              class="pill">Java</span><span class="pill">Python</span>
-          </div>
-          <p class="skill-group-title">Frontend</p>
-          <div class="skill-pills">
-            <span class="pill">React JS</span><span class="pill">Angular</span><span class="pill">HTML/CSS</span><span
-              class="pill">Bootstrap</span>
-          </div>
-          <p class="skill-group-title">Database &amp; Tools</p>
-          <div class="skill-pills">
-            <span class="pill">MySQL</span><span class="pill">REST APIs</span><span class="pill">Android
-              Studio</span><span class="pill">Git</span>
-          </div>
-          <p class="skill-group-title">Other</p>
-          <div class="skill-pills">
-            <span class="pill-outline">C++</span><span class="pill-outline">IoT / Arduino</span><span
-              class="pill-outline">Razorpay</span><span class="pill-outline">MQTT</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <p class="sec-label">Soft Skills</p>
-          <div class="soft-skills">
-            <span class="soft">Analytical</span>
-            <span class="soft">Collaborative</span>
-            <span class="soft">Leadership</span>
-            <span class="soft">Adaptable</span>
-            <span class="soft">Problem Solving</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <p class="sec-label">Achievements</p>
-          <div class="achieve-item">Improved GTU's website UI with dedicated result-view functionality.</div>
-          <div class="achieve-item">Intern of the Month — Nexis Infotech, Bharuch.</div>
-          <div class="achieve-item">2nd place — ILLUMINATI 2025 cultural fest, ITM BU.</div>
-        </div>
-
-        <div class="section">
-          <p class="sec-label">Languages</p>
-          <div class="soft-skills">
-            <span class="soft">English</span><span class="soft">Hindi</span><span class="soft">Gujarati</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="right">
-
-        <div class="section">
-          <p class="sec-label">Profile</p>
-          <p class="summary-text">Full stack developer specialising in <span class="highlight">scalable backend
-              systems</span> with hands-on experience across payment integrations, REST APIs, mobile apps, and IoT.
-            Proven in building end-to-end products used by real users — from police deployment platforms to travel
-            booking engines.</p>
-        </div>
-
-        <div class="section">
-          <p class="sec-label">Projects</p>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">Offline Transaction System</p>
-              <span class="proj-date">In Progress</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Backend Focus</span>
-              <span class="tool">Java / PHP</span><span class="tool">MySQL</span><span class="tool">REST API</span><span
-                class="tool">Offline Sync</span>
-            </div>
-            <p class="proj-desc">Architecting a backend system enabling financial transactions without internet
-              connectivity, with intelligent sync and conflict resolution on reconnect.</p>
-            <ul class="feat-list">
-              <li>Offline-first data storage with local queue management</li>
-              <li>Conflict resolution and idempotent transaction processing</li>
-              <li>Secure sync engine with data integrity validation on reconnect</li>
-              <li>Role-based access and encrypted transaction logs</li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">E-Bandobast — Gujarat Police App</p>
-              <span class="proj-date">SSIP Hackathon 2024</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Android / Java</span>
-              <span class="tool">Google Maps API</span><span class="tool">XML</span><span class="tool">Push
-                Notifications</span>
-            </div>
-            <p class="proj-desc">Centralized mobile platform for police deployment, coordination, and live monitoring
-              during public events and VIP visits across Gujarat.</p>
-            <ul class="feat-list">
-              <li>Role-based login (Admin, Inspector, Constable)</li>
-              <li>Zone-wise duty assignment and live Google Maps deployment view</li>
-              <li>Real-time push notifications for alerts and updates</li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">TechnoLab Club Website</p>
-              <span class="proj-date">April 2026</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Technical Member</span><span class="tool">Web Development</span><span
-                class="tool">Club Website</span>
-            </div>
-            <p class="proj-desc">Official website for the TechnoLab Club at ITM(sls) Baroda University, built as a
-              Technical Member of the club and currently live in production.</p>
-            <ul class="feat-list">
-              <li>Full club website — events, members, and activities</li>
-              <li><a href="https://technolabclub-dibu.onrender.com/" style="color:var(--ink);font-weight:700">Live Site
-                  ↗</a> &nbsp;·&nbsp; <a href="https://github.com/Moinkhokhar1/TechnoLabClub"
-                  style="color:var(--ink);font-weight:700">GitHub ↗</a></li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">CompileWise</p>
-              <span class="proj-date">2026</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">React / TypeScript</span><span class="tool">Node JS / Express</span><span
-                class="tool">PostgreSQL / Prisma</span><span class="tool">Docker</span><span class="tool">Gemini
-                API</span>
-            </div>
-            <p class="proj-desc">Room-based platform for teaching C: faculty create rooms, students write C in-browser,
-              and every compiler error is sandboxed, parsed, and translated into a plain-language explanation with
-              progressive hints and an AI-generated fix as a last resort.</p>
-            <ul class="feat-list">
-              <li>Sandboxed compile &amp; run per submission in a locked-down Docker container</li>
-              <li>Structured error parsing (gcc diagnostics) shown inline in a Monaco editor</li>
-              <li>AI-generated plain-language explanations, progressive hints, and patch-on-request</li>
-              <li>Faculty dashboard tracking per-student progress and hint usage</li>
-              <li><a href="https://github.com/Moinkhokhar1/CompileWise" style="color:var(--ink);font-weight:700">GitHub
-                  ↗</a></li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">NodeMap</p>
-              <span class="proj-date">August 2026</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Node JS</span><span class="tool">CLI</span><span class="tool">Disk
-                Visualizer</span>
-            </div>
-            <p class="proj-desc">A small, colorful disk usage visualizer for the terminal — a lightweight
-              reimagining of ncdu. Read-only: it never deletes or modifies anything.</p>
-            <ul class="feat-list">
-              <li>Static bar-chart reports and an interactive, arrow-key-navigable mode</li>
-              <li>Bounded-concurrency scanning so large trees don't exhaust file descriptors</li>
-              <li><a href="https://github.com/Moinkhokhar1/NodeMap" style="color:var(--ink);font-weight:700">GitHub
-                  ↗</a></li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">Satellite Data Analysis Platform</p>
-              <span class="proj-date">March 2026</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Python</span><span class="tool">Rasterio</span><span
-                class="tool">NumPy</span><span class="tool">Matplotlib</span><span class="tool">Remote Sensing</span>
-            </div>
-            <p class="proj-desc">Processes multi-band satellite imagery to extract environmental insights using NDVI and
-              NDWI indices for vegetation health and water resource monitoring.</p>
-            <ul class="feat-list">
-              <li>NDVI &amp; NDWI index calculation from raw satellite bands</li>
-              <li>Vegetation health and water body analysis from geospatial data</li>
-              <li>Supports sustainable development and environmental monitoring</li>
-              <li><a href="https://github.com/Moinkhokhar1/satellite_analytics_plateform"
-                  style="color:var(--ink);font-weight:700">GitHub ↗</a></li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">Visaease Travel Website</p>
-              <span class="proj-date">May 2025</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">React JS</span>
-              <span class="tool">Node JS</span><span class="tool">MySQL</span><span class="tool">Razorpay</span><span
-                class="tool">Nodemailer</span>
-            </div>
-            <p class="proj-desc">Full-stack travel booking platform with RESTful APIs, admin panel, and payment
-              integration handling packages, bookings, and user management.</p>
-            <ul class="feat-list">
-              <li>RESTful APIs for auth, services, and bookings</li>
-              <li>Cart system, auto pricing, and Razorpay payment gateway</li>
-              <li>Secure email via Nodemailer, user dashboard, admin panel</li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">Airline Reservation System</p>
-              <span class="proj-date">April 2025</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">PHP</span><span class="tool">MySQL</span><span
-                class="tool">Bootstrap</span><span class="tool">Razorpay</span>
-            </div>
-            <p class="proj-desc">Dynamic flight booking platform with session-based auth, flight search, ticket booking,
-              and payment gateway.</p>
-            <ul class="feat-list">
-              <li>Flight search by origin/destination/date, passenger booking, Razorpay</li>
-            </ul>
-          </div>
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">Pharmacy Management System</p>
-              <span class="proj-date">March 2025</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Laravel</span><span class="tool">MySQL</span><span
-                class="tool">Razorpay</span>
-            </div>
-            <p class="proj-desc">Web-based system for managing medicines, inventory, billing, and customer records with
-              role-based access control.</p>
-            <ul class="feat-list">
-              <li>Admin/Staff roles, cart system, Razorpay integration</li>
-            </ul>
-          </div>
-
-          <div class="proj">
-            <div class="proj-header">
-              <p class="proj-name">IoT Plant Watering System</p>
-              <span class="proj-date">March 2024</span>
-            </div>
-            <div class="proj-tools">
-              <span class="tool tool-main">Arduino / C++</span><span class="tool">DHT11</span><span class="tool">Soil
-                Moisture Sensor</span><span class="tool">MQTT</span>
-            </div>
-            <p class="proj-desc">Smart IoT system monitoring soil moisture, temperature, and humidity — auto-activating
-              water pump below threshold with remote MQTT dashboard.</p>
-            <ul class="feat-list">
-              <li>Real-time temp/humidity monitoring and automatic pump control</li>
-              <li>Remote monitoring via IoT Cloud / MQTT Dashboard with alerts</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    function goBack(e) {
-      e.preventDefault();
-      if (document.referrer) {
-        window.history.back();
-      } else {
-        window.location.href = '/';
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Moin Khokhar — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root{
+        --paper:#F2ECDA;
+        --panel:#FFFFFF;
+        --ink:#161A1F;
+        --red:#E5342B;
+        --blue:#1F4FD8;
+        --yellow:#FFCC33;
+        --muted:#5B5A52;
+        --sans:'Archivo', sans-serif;
+        --display:'Bangers', cursive;
       }
-    }
 
-    function downloadResume() {
-      const btn = document.querySelector('.download-btn');
-      btn.innerHTML = 'Preparing…';
-      setTimeout(() => {
-        window.print();
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
-      }, 200);
-    }
-  </script>
+      html, body {
+        width: 100%;
+        min-height: 100vh;
+      }
 
-</body>
+      body {
+        background: var(--paper);
+        font-family: var(--sans);
+        color: var(--ink);
+      }
 
-</html>
+      /* ── RESUME (now fills the whole viewport, no card/border/shadow) ── */
+      .resume {
+        width: 100%;
+        min-height: 100vh;
+        background: var(--panel);
+      }
+
+      .topbar {
+        width: 100%;
+        background: var(--paper);
+        padding: 16px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .back-btn,
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--sans);
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 10px 18px;
+        border: 3px solid var(--ink);
+        border-radius: 4px;
+        box-shadow: 4px 4px 0 var(--ink);
+        cursor: pointer;
+        transition: transform .12s, box-shadow .12s;
+        text-decoration: none;
+      }
+
+      .back-btn {
+        background: var(--panel);
+        color: var(--ink);
+      }
+
+      .download-btn {
+        background: var(--red);
+        color: var(--paper);
+      }
+
+      .download-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+      .back-btn:hover,
+      .download-btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      .back-btn:active,
+      .download-btn:active {
+        transform: translate(1px, 1px);
+        box-shadow: 2px 2px 0 var(--ink);
+      }
+
+      @media print {
+        .topbar { display: none; }
+      }
+
+      .header {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 48px 60px 36px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: end;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 4px solid var(--red);
+      }
+
+      .header .halftone{
+        position:absolute; inset:0;
+        background-image:radial-gradient(var(--paper) 1px, transparent 1.4px);
+        background-size:10px 10px;
+        opacity:0.07;
+        pointer-events:none;
+      }
+
+      .header-name {
+        font-family: var(--display);
+        font-size: 64px;
+        line-height: 0.95;
+        letter-spacing: 1px;
+        margin: 0 0 10px;
+        color: var(--paper);
+        -webkit-text-stroke: 1.5px var(--ink);
+        text-shadow: 3px 3px 0 var(--red);
+        position: relative;
+      }
+
+      .header-title {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin: 0 0 18px;
+        position: relative;
+      }
+
+      .header-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        position: relative;
+      }
+
+      .tag {
+        background: var(--panel);
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding: 5px 12px;
+        border: 2px solid var(--ink);
+        border-radius: 3px;
+        text-transform: uppercase;
+      }
+
+      .tag-accent {
+        background: var(--yellow);
+        border-color: var(--ink);
+        font-family: var(--sans);
+        font-weight: 800;
+      }
+
+      .contact-block { text-align: right; position: relative; }
+
+      .contact-block p {
+        margin: 0 0 6px;
+        font-size: 13px;
+        color: #C9C7BB;
+        line-height: 1.6;
+      }
+
+      .contact-block a {
+        color: var(--yellow);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .body {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        min-height: calc(100vh - 200px);
+      }
+
+      .left {
+        background: var(--paper);
+        padding: 36px 32px;
+        border-right: 3px solid var(--ink);
+      }
+
+      .right { padding: 36px 48px; }
+
+      .sec-label {
+        font-family: var(--display);
+        font-size: 19px;
+        letter-spacing: 0.5px;
+        color: var(--red);
+        margin: 0 0 14px;
+        padding-bottom: 6px;
+        border-bottom: 3px solid var(--ink);
+      }
+
+      .section { margin-bottom: 28px; }
+
+      .skill-group-title {
+        font-size: 11.5px;
+        font-weight: 800;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 10px 0 6px;
+      }
+
+      .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+
+      .pill {
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 3px;
+      }
+
+      .pill-outline {
+        background: transparent;
+        color: var(--ink);
+        border: 2px solid var(--ink);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 3px;
+      }
+
+      .edu-item { margin-bottom: 16px; }
+
+      .edu-deg { font-size: 13px; font-weight: 700; line-height: 1.4; margin: 0 0 2px; }
+
+      .edu-inst { font-size: 12px; color: var(--muted); margin: 0 0 2px; }
+
+      .edu-score {
+        font-size: 11.5px;
+        font-family: var(--display);
+        color: var(--red);
+      }
+
+      .achieve-item {
+        font-size: 12px;
+        color: #3A3830;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        padding-left: 14px;
+        position: relative;
+      }
+
+      .achieve-item::before {
+        content: '⚡';
+        position: absolute;
+        left: 0;
+        font-size: 10px;
+        top: 2px;
+      }
+
+      .proj {
+        margin-bottom: 20px;
+        padding: 16px 18px;
+        border: 2.5px solid var(--ink);
+        border-radius: 6px;
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .proj-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        gap: 10px;
+      }
+
+      .proj-name {
+        font-family: var(--display);
+        font-size: 17px;
+        color: var(--ink);
+        line-height: 1.3;
+        margin: 0;
+      }
+
+      .proj-date {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--paper);
+        background: var(--blue);
+        border: 2px solid var(--ink);
+        padding: 2px 8px;
+        border-radius: 3px;
+        white-space: nowrap;
+        margin-top: 2px;
+      }
+
+      .proj-tools { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+
+      .tool {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1.5px solid var(--ink);
+        padding: 3px 8px;
+        border-radius: 3px;
+        letter-spacing: 0.3px;
+      }
+
+      .tool-main { background: var(--yellow); font-weight: 800; }
+
+      .proj-desc { font-size: 12.5px; color: #3A3830; line-height: 1.65; margin: 0 0 8px; }
+
+      .feat-list { margin: 0; padding: 0; list-style: none; }
+
+      .feat-list li {
+        font-size: 12px;
+        color: #3A3830;
+        line-height: 1.6;
+        padding-left: 15px;
+        position: relative;
+        margin-bottom: 3px;
+      }
+
+      .feat-list li::before {
+        content: '»';
+        position: absolute;
+        left: 0;
+        color: var(--red);
+        font-weight: 800;
+      }
+
+      .summary-text { font-size: 13px; line-height: 1.75; color: #3A3830; margin: 0 0 6px; }
+
+      .highlight { background: var(--yellow); padding: 1px 5px; font-weight: 700; color: var(--ink); border-radius: 2px; }
+
+      .soft-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+
+      .soft { font-size: 12px; color: #3A3830; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+
+      .soft::before {
+        content: '';
+        width: 7px; height: 7px;
+        background: var(--red);
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      @media print {
+        .resume { max-width: 100%; }
+        .proj { box-shadow: none; }
+        .header .halftone { display: none; }
+      }
+
+      @media (max-width: 640px) {
+        .header { grid-template-columns: 1fr; gap: 16px; padding: 32px 24px 24px; }
+        .contact-block { text-align: left; }
+        .header-name { font-size: 40px; }
+        .body { grid-template-columns: 1fr; }
+        .left { border-right: none; border-bottom: 3px solid var(--ink); }
+        .right { padding: 28px 24px; }
+      }
+    </style>
+  </head>
+
+  <body>
+
+<div class="topbar">
+  <a href="#" class="back-btn" onclick="goBack(event)">← Back</a>
+  <button class="download-btn" onclick="downloadResume()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 3v13M7 11l5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+    Download Resume
+  </button>
+  <a href="moin_khokhar_resume_ats.html" target="_blank" rel="noopener" class="back-btn">
+    ATS-Friendly Resume
+  </a>
+      
+    <div class="resume" id="resume">
+      <div class="header">
+        <div class="halftone"></div>
+        <div style="position:relative;">
+          <p class="header-name">Moin<br>Khokhar</p>
+          <p class="header-title">Backend + Full Stack Developer</p>
+          <div class="header-tags">
+            <span class="tag tag-accent">Available for hire</span>
+            <span class="tag">Java</span>
+            <span class="tag">PHP / Laravel</span>
+            <span class="tag">React JS</span>
+            <span class="tag">Node JS</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+        <div class="contact-block">
+          <p>moinkhokhar2730vdr@gmail.com</p>
+          <p>+91 72010 74880</p>
+          <p>Vadodara, Gujarat</p>
+          <p><a href="https://www.linkedin.com/in/moinkhokhar">linkedin.com/in/moinkhokhar</a></p>
+          <p><a href="https://github.com/Moinkhokhar1">github.com/Moinkhokhar1</a></p>
+        </div>
+      </div>
+
+      <div class="body">
+        <div class="left">
+
+          <div class="section">
+            <p class="sec-label">Education</p>
+            <div class="edu-item">
+              <p class="edu-deg">B.Tech — Computer Science &amp; Engineering</p>
+              <p class="edu-inst">ITM(sls) Baroda University, Vadodara</p>
+              <p class="edu-score">SPI 8.63 · Pursuing</p>
+            </div>
+            <div class="edu-item">
+              <p class="edu-deg">Diploma — Computer Engineering</p>
+              <p class="edu-inst">Shri K.J. Polytechnic, Bharuch · GTU</p>
+              <p class="edu-score">CGPA 7.42</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <p class="sec-label">Technical Skills</p>
+            <p class="skill-group-title">Backend</p>
+            <div class="skill-pills">
+              <span class="pill">PHP</span><span class="pill">Laravel</span><span class="pill">Node JS</span><span
+                class="pill">Java</span><span class="pill">Python</span>
+            </div>
+            <p class="skill-group-title">Frontend</p>
+            <div class="skill-pills">
+              <span class="pill">React JS</span><span class="pill">Angular</span><span class="pill">HTML/CSS</span><span
+                class="pill">Bootstrap</span>
+            </div>
+            <p class="skill-group-title">Database &amp; Tools</p>
+            <div class="skill-pills">
+              <span class="pill">MySQL</span><span class="pill">REST APIs</span><span class="pill">Android
+                Studio</span><span class="pill">Git</span>
+            </div>
+            <p class="skill-group-title">Other</p>
+            <div class="skill-pills">
+              <span class="pill-outline">C++</span><span class="pill-outline">IoT / Arduino</span><span
+                class="pill-outline">Razorpay</span><span class="pill-outline">MQTT</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <p class="sec-label">Soft Skills</p>
+            <div class="soft-skills">
+              <span class="soft">Analytical</span>
+              <span class="soft">Collaborative</span>
+              <span class="soft">Leadership</span>
+              <span class="soft">Adaptable</span>
+              <span class="soft">Problem Solving</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <p class="sec-label">Achievements</p>
+            <div class="achieve-item">Improved GTU's website UI with dedicated result-view functionality.</div>
+            <div class="achieve-item">Intern of the Month — Nexis Infotech, Bharuch.</div>
+            <div class="achieve-item">2nd place — ILLUMINATI 2025 cultural fest, ITM BU.</div>
+          </div>
+
+          <div class="section">
+            <p class="sec-label">Languages</p>
+            <div class="soft-skills">
+              <span class="soft">English</span><span class="soft">Hindi</span><span class="soft">Gujarati</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="right">
+
+          <div class="section">
+            <p class="sec-label">Profile</p>
+            <p class="summary-text">Full stack developer specialising in <span class="highlight">scalable backend
+                systems</span> with hands-on experience across payment integrations, REST APIs, mobile apps, and IoT.
+              Proven in building end-to-end products used by real users — from police deployment platforms to travel
+              booking engines.</p>
+          </div>
+
+          <div class="section">
+            <p class="sec-label">Projects</p>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">Offline Transaction System</p>
+                <span class="proj-date">In Progress</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Backend Focus</span>
+                <span class="tool">Java / PHP</span><span class="tool">MySQL</span><span class="tool">REST API</span><span
+                  class="tool">Offline Sync</span>
+              </div>
+              <p class="proj-desc">Architecting a backend system enabling financial transactions without internet
+                connectivity, with intelligent sync and conflict resolution on reconnect.</p>
+              <ul class="feat-list">
+                <li>Offline-first data storage with local queue management</li>
+                <li>Conflict resolution and idempotent transaction processing</li>
+                <li>Secure sync engine with data integrity validation on reconnect</li>
+                <li>Role-based access and encrypted transaction logs</li>
+              </ul>
+            </div>
+
+            <div class="proj">
+    <div class="proj-header">
+      <p class="proj-name">Deewano Ki Mehfil</p>
+      <span class="proj-date">September 2026</span>
+    </div>
+
+    <div class="proj-tools">
+      <span class="tool tool-main">Full Stack</span>
+      <span class="tool">Node.js</span>
+      <span class="tool">Express.js</span>
+      <span class="tool">EJS</span>
+      <span class="tool">SQLite</span>
+      <span class="tool">REST API</span>
+    </div>
+
+    <p class="proj-desc">
+      A full-stack event ticket booking platform for discovering events,
+      managing bookings, verifying payments, and generating digital tickets
+      with unique QR codes.
+    </p>
+
+    <ul class="feat-list">
+      <li>Event discovery with detailed event pages and image galleries</li>
+      <li>Secure user authentication, booking management, and ticket history</li>
+      <li>QR-based payment verification with payment proof uploads</li>
+      <li>Admin dashboard for event, booking, and payment management</li>
+      <li>Automated digital ticket generation with unique QR codes</li>
+    </ul>
+  </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">E-Bandobast — Gujarat Police App</p>
+                <span class="proj-date">SSIP Hackathon 2024</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Android / Java</span>
+                <span class="tool">Google Maps API</span><span class="tool">XML</span><span class="tool">Push
+                  Notifications</span>
+              </div>
+              <p class="proj-desc">Centralized mobile platform for police deployment, coordination, and live monitoring
+                during public events and VIP visits across Gujarat.</p>
+              <ul class="feat-list">
+                <li>Role-based login (Admin, Inspector, Constable)</li>
+                <li>Zone-wise duty assignment and live Google Maps deployment view</li>
+                <li>Real-time push notifications for alerts and updates</li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">TechnoLab Club Website</p>
+                <span class="proj-date">April 2026</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Technical Member</span><span class="tool">Web Development</span><span
+                  class="tool">Club Website</span>
+              </div>
+              <p class="proj-desc">Official website for the TechnoLab Club at ITM(sls) Baroda University, built as a
+                Technical Member of the club and currently live in production.</p>
+              <ul class="feat-list">
+                <li>Full club website — events, members, and activities</li>
+                <li><a href="https://technolabclub-dibu.onrender.com/" style="color:var(--ink);font-weight:700">Live Site
+                    ↗</a> &nbsp;·&nbsp; <a href="https://github.com/Moinkhokhar1/TechnoLabClub"
+                    style="color:var(--ink);font-weight:700">GitHub ↗</a></li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">CompileWise</p>
+                <span class="proj-date">August 2026</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">React / TypeScript</span><span class="tool">Node JS / Express</span><span
+                  class="tool">PostgreSQL / Prisma</span><span class="tool">Docker</span><span class="tool">Gemini
+                  API</span>
+              </div>
+              <p class="proj-desc">Room-based platform for teaching C: faculty create rooms, students write C in-browser,
+                and every compiler error is sandboxed, parsed, and translated into a plain-language explanation with
+                progressive hints and an AI-generated fix as a last resort.</p>
+              <ul class="feat-list">
+                <li>Sandboxed compile &amp; run per submission in a locked-down Docker container</li>
+                <li>Structured error parsing (gcc diagnostics) shown inline in a Monaco editor</li>
+                <li>AI-generated plain-language explanations, progressive hints, and patch-on-request</li>
+                <li>Faculty dashboard tracking per-student progress and hint usage</li>
+                <li><a href="https://github.com/Moinkhokhar1/CompileWise" style="color:var(--ink);font-weight:700">GitHub
+                    ↗</a></li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">NodeMap</p>
+                <span class="proj-date">August 2026</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Node JS</span><span class="tool">CLI</span><span class="tool">Disk
+                  Visualizer</span>
+              </div>
+              <p class="proj-desc">A small, colorful disk usage visualizer for the terminal — a lightweight
+                reimagining of ncdu. Read-only: it never deletes or modifies anything.</p>
+              <ul class="feat-list">
+                <li>Static bar-chart reports and an interactive, arrow-key-navigable mode</li>
+                <li>Bounded-concurrency scanning so large trees don't exhaust file descriptors</li>
+                <li><a href="https://github.com/Moinkhokhar1/NodeMap" style="color:var(--ink);font-weight:700">GitHub
+                    ↗</a></li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">Satellite Data Analysis Platform</p>
+                <span class="proj-date">March 2026</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Python</span><span class="tool">Rasterio</span><span
+                  class="tool">NumPy</span><span class="tool">Matplotlib</span><span class="tool">Remote Sensing</span>
+              </div>
+              <p class="proj-desc">Processes multi-band satellite imagery to extract environmental insights using NDVI and
+                NDWI indices for vegetation health and water resource monitoring.</p>
+              <ul class="feat-list">
+                <li>NDVI &amp; NDWI index calculation from raw satellite bands</li>
+                <li>Vegetation health and water body analysis from geospatial data</li>
+                <li>Supports sustainable development and environmental monitoring</li>
+                <li><a href="https://github.com/Moinkhokhar1/satellite_analytics_plateform"
+                    style="color:var(--ink);font-weight:700">GitHub ↗</a></li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">Visaease Travel Website</p>
+                <span class="proj-date">May 2025</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">React JS</span>
+                <span class="tool">Node JS</span><span class="tool">MySQL</span><span class="tool">Razorpay</span><span
+                  class="tool">Nodemailer</span>
+              </div>
+              <p class="proj-desc">Full-stack travel booking platform with RESTful APIs, admin panel, and payment
+                integration handling packages, bookings, and user management.</p>
+              <ul class="feat-list">
+                <li>RESTful APIs for auth, services, and bookings</li>
+                <li>Cart system, auto pricing, and Razorpay payment gateway</li>
+                <li>Secure email via Nodemailer, user dashboard, admin panel</li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">Airline Reservation System</p>
+                <span class="proj-date">April 2025</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">PHP</span><span class="tool">MySQL</span><span
+                  class="tool">Bootstrap</span><span class="tool">Razorpay</span>
+              </div>
+              <p class="proj-desc">Dynamic flight booking platform with session-based auth, flight search, ticket booking,
+                and payment gateway.</p>
+              <ul class="feat-list">
+                <li>Flight search by origin/destination/date, passenger booking, Razorpay</li>
+              </ul>
+            </div>
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">Pharmacy Management System</p>
+                <span class="proj-date">March 2025</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Laravel</span><span class="tool">MySQL</span><span
+                  class="tool">Razorpay</span>
+              </div>
+              <p class="proj-desc">Web-based system for managing medicines, inventory, billing, and customer records with
+                role-based access control.</p>
+              <ul class="feat-list">
+                <li>Admin/Staff roles, cart system, Razorpay integration</li>
+              </ul>
+            </div>
+
+            <div class="proj">
+              <div class="proj-header">
+                <p class="proj-name">IoT Plant Watering System</p>
+                <span class="proj-date">March 2024</span>
+              </div>
+              <div class="proj-tools">
+                <span class="tool tool-main">Arduino / C++</span><span class="tool">DHT11</span><span class="tool">Soil
+                  Moisture Sensor</span><span class="tool">MQTT</span>
+              </div>
+              <p class="proj-desc">Smart IoT system monitoring soil moisture, temperature, and humidity — auto-activating
+                water pump below threshold with remote MQTT dashboard.</p>
+              <ul class="feat-list">
+                <li>Real-time temp/humidity monitoring and automatic pump control</li>
+                <li>Remote monitoring via IoT Cloud / MQTT Dashboard with alerts</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function goBack(e) {
+        e.preventDefault();
+        if (document.referrer) {
+          window.history.back();
+        } else {
+          window.location.href = '/';
+        }
+      }
+
+      function downloadResume() {
+        const btn = document.querySelector('.download-btn');
+        btn.innerHTML = 'Preparing…';
+        setTimeout(() => {
+          window.print();
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 3v13M7 11l5 5 5-5"/><path d="M5 21h14"/></svg> Download PDF';
+        }, 200);
+      }
+    </script>
+
+  </body>
+
+  </html>
